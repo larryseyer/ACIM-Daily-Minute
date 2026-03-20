@@ -135,6 +135,118 @@ MISSING_SPACE_FIXES = {
     "eternallyvital": "eternally vital",
 }
 
+# --- I + word patterns (PDF extraction lost space after "I") ---
+I_WORD_FIXES = {
+    "Isee": "I see",
+    "Ithink": "I think",
+    "Inow": "I now",
+    "Ido": "I do",
+    "Iwill": "I will",
+    "Ihave": "I have",
+    "Iknow": "I know",
+    "Iwas": "I was",
+    "Iwant": "I want",
+    "Iam": "I am",
+    "Iforgive": "I forgive",
+    "Itrust": "I trust",
+    "Ishare": "I share",
+    "Ithank": "I thank",
+    "Iask": "I ask",
+    "Iaccept": "I accept",
+    "Ichoose": "I choose",
+    "Irest": "I rest",
+    "Iseek": "I seek",
+    "Igive": "I give",
+    "Itake": "I take",
+    "Imade": "I made",
+    "Imake": "I make",
+    "Ilearned": "I learned",
+    "Ilearn": "I learn",
+    "Ineed": "I need",
+    "Ithought": "I thought",
+    "Ifind": "I find",
+    "Itold": "I told",
+    "Ifeel": "I feel",
+    "Ilet": "I let",
+    "Ilove": "I love",
+    "Ibelieve": "I believe",
+    "Iremember": "I remember",
+    "Iplace": "I place",
+    "Icall": "I call",
+    "Ireceive": "I receive",
+    "Itry": "I try",
+    "Isuffer": "I suffer",
+    "Isaid": "I said",
+    "Istand": "I stand",
+    "Ispend": "I spend",
+    "Isought": "I sought",
+    "Iforget": "I forget",
+    "Ifollow": "I follow",
+    "Ifear": "I fear",
+    "Ifailed": "I failed",
+    "Iwalk": "I walk",
+    "Ibring": "I bring",
+    "Ilay": "I lay",
+    "Istill": "I still",
+    "Itreasure": "I treasure",
+    "Itaught": "I taught",
+    "Inaturally": "I naturally",
+    "Ithus": "I thus",
+    "Ithen": "I then",
+    "Ithe": "I the",
+    "Isucceed": "I succeed",
+    "Ispeak": "I speak",
+    "Isinned": "I sinned",
+    "Ishould": "I should",
+    "Ished": "I shed",
+    "Iset": "I set",
+    "Isave": "I save",
+    "Ito ": "I to ",
+    "Ino ": "I no ",
+    "Iso ": "I so ",
+    "Ihold": "I hold",
+    "Iheld": "I held",
+    "Ilook": "I look",
+    "Ilooked": "I looked",
+    "Idid": "I did",
+    "Icould": "I could",
+    "Iwould": "I would",
+    "Ishould": "I should",
+    "Imust": "I must",
+    "Ican": "I can",
+    "Ishall": "I shall",
+    "Imay": "I may",
+    "Imight": "I might",
+    "Isacrifice": "I sacrifice",
+    "Inot": "I not",
+}
+
+# --- ALLCAPS + word patterns (emphasis words lost trailing space) ---
+ALLCAPS_WORD_FIXES = {
+    "ISpossible": "IS possible",
+    "ISthe": "IS the",
+    "ISto": "IS to",
+    "ISyour": "IS your",
+    "ISit": "IS it",
+    "ISnot": "IS not",
+    "ISno": "IS no",
+    "ISa ": "IS a ",
+    "ISin": "IS in",
+    "ISwhat": "IS what",
+    "ISall": "IS all",
+    "ISonly": "IS only",
+    "ISwhy": "IS why",
+    "IShow": "IS how",
+    "ISthis": "IS this",
+    "ISthat": "IS that",
+    "ISone": "IS one",
+    "ISbut": "IS but",
+    "ISso": "IS so",
+    "ThisTHE": "This THE",
+    "himTHE": "him THE",
+    "themTHE": "them THE",
+}
+
 
 def connect_db() -> sqlite3.Connection:
     """Connect to the database."""
@@ -181,6 +293,8 @@ def fix_text(text: str) -> tuple[str, dict]:
         "capital_space": 0,
         "spurious_space": 0,
         "missing_space": 0,
+        "i_word": 0,
+        "allcaps_word": 0,
         "artifacts": 0,
         "missing_space_after_punct": 0,
         "whitespace": 0,
@@ -214,6 +328,20 @@ def fix_text(text: str) -> tuple[str, dict]:
         if pattern in text:
             count = text.count(pattern)
             changes["missing_space"] += count
+            text = text.replace(pattern, replacement)
+
+    # 3c. Fix I+word patterns (Isee -> I see)
+    for pattern, replacement in I_WORD_FIXES.items():
+        if pattern in text:
+            count = text.count(pattern)
+            changes["i_word"] += count
+            text = text.replace(pattern, replacement)
+
+    # 3d. Fix ALLCAPS+word patterns (ISthe -> IS the)
+    for pattern, replacement in ALLCAPS_WORD_FIXES.items():
+        if pattern in text:
+            count = text.count(pattern)
+            changes["allcaps_word"] += count
             text = text.replace(pattern, replacement)
 
     # 4. Remove/fix artifacts
@@ -261,6 +389,8 @@ def analyze(conn: sqlite3.Connection, verbose: bool = False) -> dict:
         "capital_space": {"count": 0, "segments": 0, "examples": []},
         "spurious_space": {"count": 0, "segments": 0, "examples": []},
         "missing_space": {"count": 0, "segments": 0, "examples": []},
+        "i_word": {"count": 0, "segments": 0, "examples": []},
+        "allcaps_word": {"count": 0, "segments": 0, "examples": []},
         "artifacts": {"count": 0, "segments": 0, "examples": []},
         "missing_space_after_punct": {"count": 0, "segments": 0, "examples": []},
         "whitespace": {"count": 0, "segments": 0, "examples": []},
@@ -310,6 +440,8 @@ def print_analysis(stats: dict):
         ("capital_space", "Capital+space patterns (T ext, Y our, etc.)"),
         ("spurious_space", "Spurious spaces (cour se, etc.)"),
         ("missing_space", "Missing spaces (compound words)"),
+        ("i_word", "I+word patterns (Isee, Ithink, etc.)"),
+        ("allcaps_word", "ALLCAPS+word patterns (ISthe, ISpossible, etc.)"),
         ("artifacts", "Formatting artifacts (PREFACE iii, etc.)"),
         ("missing_space_after_punct", "Missing space after punctuation"),
         ("whitespace", "Multiple/excess whitespace"),
@@ -364,6 +496,8 @@ def apply_fixes(conn: sqlite3.Connection, dry_run: bool = False) -> dict:
         "capital_space": 0,
         "spurious_space": 0,
         "missing_space": 0,
+        "i_word": 0,
+        "allcaps_word": 0,
         "artifacts": 0,
         "missing_space_after_punct": 0,
         "whitespace": 0,
@@ -461,6 +595,8 @@ def main():
             print(f"Capital+space fixed: {results['capital_space']}")
             print(f"Spurious spaces fixed: {results['spurious_space']}")
             print(f"Missing spaces fixed: {results['missing_space']}")
+            print(f"I+word patterns fixed: {results['i_word']}")
+            print(f"ALLCAPS+word patterns fixed: {results['allcaps_word']}")
             print(f"Artifacts removed: {results['artifacts']}")
             print(f"Punctuation spacing fixed: {results['missing_space_after_punct']}")
             print(f"Whitespace normalized: {results['whitespace']}")

@@ -139,6 +139,51 @@ def clean_text(raw: str) -> str:
     for pattern, replacement in spurious_fixes.items():
         text = text.replace(pattern, replacement)
 
+    # --- I+word Pattern Fixes (PDF lost space after "I") ---
+    i_word_fixes = {
+        "Isee": "I see", "Ithink": "I think", "Inow": "I now", "Ido": "I do",
+        "Iwill": "I will", "Ihave": "I have", "Iknow": "I know", "Iwas": "I was",
+        "Iwant": "I want", "Iam": "I am", "Iforgive": "I forgive",
+        "Itrust": "I trust", "Ishare": "I share", "Ithank": "I thank",
+        "Iask": "I ask", "Iaccept": "I accept", "Ichoose": "I choose",
+        "Irest": "I rest", "Iseek": "I seek", "Igive": "I give",
+        "Itake": "I take", "Imade": "I made", "Imake": "I make",
+        "Ilearned": "I learned", "Ilearn": "I learn", "Ineed": "I need",
+        "Ithought": "I thought", "Ifind": "I find", "Itold": "I told",
+        "Ifeel": "I feel", "Ilet": "I let", "Ilove": "I love",
+        "Ibelieve": "I believe", "Iremember": "I remember", "Iplace": "I place",
+        "Icall": "I call", "Ireceive": "I receive", "Itry": "I try",
+        "Isuffer": "I suffer", "Isaid": "I said", "Istand": "I stand",
+        "Ispend": "I spend", "Isought": "I sought", "Iforget": "I forget",
+        "Ifollow": "I follow", "Ifear": "I fear", "Ifailed": "I failed",
+        "Iwalk": "I walk", "Ibring": "I bring", "Ilay": "I lay",
+        "Istill": "I still", "Itreasure": "I treasure", "Itaught": "I taught",
+        "Inaturally": "I naturally", "Ithus": "I thus", "Ithen": "I then",
+        "Ithe": "I the", "Isucceed": "I succeed", "Ispeak": "I speak",
+        "Isinned": "I sinned", "Ishould": "I should", "Ished": "I shed",
+        "Iset": "I set", "Isave": "I save", "Ito ": "I to ", "Ino ": "I no ",
+        "Iso ": "I so ", "Ihold": "I hold", "Iheld": "I held",
+        "Ilook": "I look", "Ilooked": "I looked", "Idid": "I did",
+        "Icould": "I could", "Iwould": "I would", "Imust": "I must",
+        "Ican": "I can", "Ishall": "I shall", "Imay": "I may",
+        "Imight": "I might", "Isacrifice": "I sacrifice", "Inot": "I not",
+    }
+    for pattern, replacement in i_word_fixes.items():
+        text = text.replace(pattern, replacement)
+
+    # --- ALLCAPS+word Pattern Fixes (emphasis words lost trailing space) ---
+    allcaps_fixes = {
+        "ISpossible": "IS possible", "ISthe": "IS the", "ISto": "IS to",
+        "ISyour": "IS your", "ISit": "IS it", "ISnot": "IS not",
+        "ISno": "IS no", "ISa ": "IS a ", "ISin": "IS in",
+        "ISwhat": "IS what", "ISall": "IS all", "ISonly": "IS only",
+        "ISwhy": "IS why", "IShow": "IS how", "ISthis": "IS this",
+        "ISthat": "IS that", "ISone": "IS one", "ISbut": "IS but",
+        "ISso": "IS so", "ThisTHE": "This THE", "himTHE": "him THE",
+    }
+    for pattern, replacement in allcaps_fixes.items():
+        text = text.replace(pattern, replacement)
+
     # --- Remove Artifacts ---
     text = re.sub(r"PREFACE\s+[ivxIVX]+", "", text)  # PREFACE iii, etc.
     text = re.sub(r"P\s+R\s+E\s+F\s+A\s+C\s+E", "PREFACE", text)  # P R E F A C E
