@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffmpeg:*)",
+      "Bash(chmod:*)",
+      "Bash(ffprobe:*)",
+      "Bash(python3:*)",
+      "Bash(find /Users/larryseyer/acim-daily-minute -type f -name *.py -o -name *.sh -o -name *.json -o -name *.yaml -o -name *.yml -o -name *.toml -o -name *.conf -o -name *.config)"
+    ]
+  }
+}

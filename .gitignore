@@ -1,0 +1,14 @@
+*.pyc
+.DS_Store
+.env
+.plist
+__pycache__/
+_pycache/
+audio/
+client_secrets.json
+data/
+data/youtube_tokens.json
+images/
+logs/
+pdfs/
+video/
