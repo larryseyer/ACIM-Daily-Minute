@@ -8,3 +8,4 @@ google-auth-oauthlib>=1.1.0
 google-auth-httplib2>=0.1.1
 requests>=2.31.0
 fpdf2>=2.7.0
+pyspellchecker>=0.7.0
