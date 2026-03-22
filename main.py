@@ -4,7 +4,7 @@ from __future__ import annotations
 main.py — ACIM Daily Minute pipeline orchestrator.
 
 Orchestrates the full daily pipeline: pick segment, generate TTS audio,
-build scrolling text video, upload to YouTube.
+build scrolling text videos (YouTube + TikTok), upload to both platforms.
 
 Usage:
     python main.py              # Normal daily run (called by launchd)
@@ -12,6 +12,8 @@ Usage:
     python main.py --status     # Show status
     python main.py --dry-run    # Test pipeline without uploading
     python main.py --reimport   # Re-extract PDFs
+    python main.py --skip-tiktok  # Skip TikTok upload
+    python main.py --tiktok-only  # Only upload to TikTok (skip YouTube)
 """
 
 import argparse
@@ -39,10 +41,12 @@ DATA_DIR = BASE_DIR / os.getenv("DATA_DIR", "data")
 LOG_DIR = BASE_DIR / os.getenv("LOG_DIR", "logs")
 DB_PATH = DATA_DIR / "acim.db"
 
-TAGS = [
+YOUTUBE_TAGS = [
     "ACIM", "A Course in Miracles", "Helen Schucman",
     "spiritual", "daily reading", "meditation", "miracle",
 ]
+
+TIKTOK_HASHTAGS = "#ACIM #ACourseInMiracles #Spirituality #DailyInspiration #Meditation"
 
 
 def setup_logging():
@@ -124,20 +128,45 @@ def mark_segment_used(segment_id: int, date_str: str):
     conn.close()
 
 
-def log_upload(segment_id: int, date_str: str, video_id: str | None,
-               audio_file: str, video_file: str, success: bool,
-               error_msg: str | None = None):
+def log_upload(
+    segment_id: int,
+    date_str: str,
+    youtube_id: str | None,
+    tiktok_id: str | None,
+    audio_file: str,
+    video_file: str,
+    youtube_success: bool,
+    tiktok_success: bool,
+    error_msg: str | None = None,
+):
     """Log an upload attempt to the database."""
     conn = get_db()
-    youtube_url = f"https://youtu.be/{video_id}" if video_id else None
-    conn.execute(
-        """INSERT INTO upload_log
-           (segment_id, upload_date, youtube_id, youtube_url,
-            audio_file, video_file, success, error_msg)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-        (segment_id, date_str, video_id, youtube_url,
-         audio_file, video_file, 1 if success else 0, error_msg),
-    )
+    youtube_url = f"https://youtu.be/{youtube_id}" if youtube_id else None
+
+    # Check if tiktok columns exist; if not, use old schema
+    cursor = conn.execute("PRAGMA table_info(upload_log)")
+    columns = [row[1] for row in cursor.fetchall()]
+
+    if "tiktok_id" in columns:
+        conn.execute(
+            """INSERT INTO upload_log
+               (segment_id, upload_date, youtube_id, youtube_url,
+                tiktok_id, audio_file, video_file, success, tiktok_success, error_msg)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (segment_id, date_str, youtube_id, youtube_url, tiktok_id,
+             audio_file, video_file, 1 if youtube_success else 0,
+             1 if tiktok_success else 0, error_msg),
+        )
+    else:
+        # Fallback to old schema (before migration)
+        conn.execute(
+            """INSERT INTO upload_log
+               (segment_id, upload_date, youtube_id, youtube_url,
+                audio_file, video_file, success, error_msg)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (segment_id, date_str, youtube_id, youtube_url,
+             audio_file, video_file, 1 if youtube_success else 0, error_msg),
+        )
     conn.commit()
     conn.close()
 
@@ -162,6 +191,13 @@ def show_status():
         print("Database not found. Run: python pdf_extractor.py")
         return
 
+    # Check TikTok configuration
+    try:
+        from tiktok_uploader import is_tiktok_configured
+        tiktok_configured = is_tiktok_configured()
+    except ImportError:
+        tiktok_configured = False
+
     conn = get_db()
 
     total = conn.execute("SELECT COUNT(*) FROM segments").fetchone()[0]
@@ -171,6 +207,15 @@ def show_status():
     uploads = conn.execute(
         "SELECT COUNT(*) FROM upload_log WHERE success = 1"
     ).fetchone()[0]
+
+    # Check for TikTok uploads if column exists
+    cursor = conn.execute("PRAGMA table_info(upload_log)")
+    columns = [row[1] for row in cursor.fetchall()]
+    tiktok_uploads = 0
+    if "tiktok_success" in columns:
+        tiktok_uploads = conn.execute(
+            "SELECT COUNT(*) FROM upload_log WHERE tiktok_success = 1"
+        ).fetchone()[0]
 
     print(f"\n=== ACIM Daily Minute Status ===")
     print(f"Segments total:     {total}")
@@ -192,20 +237,43 @@ def show_status():
         years = remaining / 365.25
         print(f"Corpus exhaustion:  ~{years:.1f} years from now")
 
-    print(f"YouTube channel:    {os.getenv('CHANNEL_NAME', 'ACIM Daily Minute')}")
+    print(f"\n--- Platforms ---")
+    print(f"YouTube:            Configured")
+    print(f"  Uploads:          {uploads}")
+    print(f"TikTok:             {'Configured' if tiktok_configured else 'Not configured (run setup_tiktok.py)'}")
+    if tiktok_configured and tiktok_uploads > 0:
+        print(f"  Uploads:          {tiktok_uploads}")
+
+    print(f"\nChannel name:       {os.getenv('CHANNEL_NAME', 'ACIM Daily Minute')}")
     print()
 
     conn.close()
 
 
-def run_daily_pipeline(dry_run: bool = False):
+def run_daily_pipeline(
+    dry_run: bool = False,
+    skip_tiktok: bool = False,
+    tiktok_only: bool = False,
+):
     """Full pipeline for one day's upload."""
     # Import here to avoid circular imports and allow --status without deps
     from tts_generator import generate_audio
-    from uploader import generate_thumbnail, upload_video
+    from uploader import generate_thumbnail, upload_video as upload_youtube
     from video_builder import build_video
 
+    # Check if TikTok is configured
+    try:
+        from tiktok_uploader import is_tiktok_configured, upload_video as upload_tiktok
+        tiktok_available = is_tiktok_configured()
+    except ImportError:
+        tiktok_available = False
+        upload_tiktok = None
+
+    do_youtube = not tiktok_only
+    do_tiktok = tiktok_available and not skip_tiktok
+
     log.info("=== ACIM Daily Minute pipeline starting ===")
+    log.info(f"Platforms: YouTube={'yes' if do_youtube else 'skip'}, TikTok={'yes' if do_tiktok else 'skip/not configured'}")
 
     if not DB_PATH.exists():
         log.error("Database not found. Run: python pdf_extractor.py")
@@ -241,57 +309,118 @@ def run_daily_pipeline(dry_run: bool = False):
         f"({segment['word_count']} words)"
     )
 
-    # 2. Generate audio via ElevenLabs
+    # 2. Generate audio via ElevenLabs (shared between both platforms)
     audio_path = AUDIO_DIR / f"acim_{segment['id']}.mp3"
     if not generate_audio(segment["text"], str(audio_path)):
         log.error("TTS generation failed")
         return
 
-    # 3. Thumbnail — use custom one if it exists, otherwise generate
     day_number = get_next_day_number()
-    thumbnail_path = ASSETS_DIR / "thumbnail.png"
-    if thumbnail_path.exists():
-        log.info(f"Using existing thumbnail: {thumbnail_path}")
-    else:
-        generate_thumbnail(day_number, str(thumbnail_path))
 
-    # 4. Build video
-    video_path = VIDEO_DIR / f"acim-day-{day_number:04d}-{date_str}.mp4"
-    if not build_video(segment["text"], str(audio_path), str(video_path)):
-        log.error("Video build failed")
-        audio_path.unlink(missing_ok=True)
-        return
+    # 3. Build YouTube video (horizontal 1920x1080)
+    youtube_video_path = None
+    if do_youtube:
+        youtube_video_path = VIDEO_DIR / f"acim-day-{day_number:04d}-{date_str}.mp4"
+        if not build_video(segment["text"], str(audio_path), str(youtube_video_path), format="horizontal"):
+            log.error("YouTube video build failed")
+            audio_path.unlink(missing_ok=True)
+            return
 
-    # 5. Upload to YouTube (skip in dry-run mode)
-    title = f"ACIM Daily Minute for {date_str} \u2014 Day {day_number}"
+    # 4. Build TikTok video (vertical 1080x1920)
+    tiktok_video_path = None
+    if do_tiktok:
+        tiktok_video_path = VIDEO_DIR / f"acim-day-{day_number:04d}-{date_str}-tiktok.mp4"
+        if not build_video(segment["text"], str(audio_path), str(tiktok_video_path), format="vertical"):
+            log.error("TikTok video build failed")
+            # Continue with YouTube if that's enabled
+            if not do_youtube:
+                audio_path.unlink(missing_ok=True)
+                return
+            do_tiktok = False
+
+    # 5. Thumbnail for YouTube
+    thumbnail_path = ASSETS_DIR / "thumbnail.jpg"
+    if do_youtube:
+        if thumbnail_path.exists():
+            log.info(f"Using existing thumbnail: {thumbnail_path}")
+        else:
+            generate_thumbnail(day_number, str(thumbnail_path))
+
+    # Build titles and descriptions
+    title = f"ACIM Daily Minute for {date_str} — Day {day_number}"
     description = build_description(day_number, segment)
+    tiktok_title = f"ACIM Daily Minute Day {day_number} {TIKTOK_HASHTAGS}"
 
     if dry_run:
         log.info(f"DRY RUN — would upload: {title}")
-        log.info(f"Video: {video_path}")
+        if youtube_video_path:
+            log.info(f"YouTube Video: {youtube_video_path}")
+        if tiktok_video_path:
+            log.info(f"TikTok Video: {tiktok_video_path}")
         log.info(f"Audio: {audio_path}")
         log.info(f"Segment text: {segment['text'][:100]}...")
-        # Cleanup temp audio
+        # Cleanup temp files
         audio_path.unlink(missing_ok=True)
+        if tiktok_video_path:
+            tiktok_video_path.unlink(missing_ok=True)
         log.info("=== DRY RUN complete ===")
         return
 
-    video_id = upload_video(
-        str(video_path), title, description, TAGS, str(thumbnail_path)
-    )
+    # 6. Upload to YouTube
+    youtube_id = None
+    youtube_success = False
+    if do_youtube:
+        youtube_id = upload_youtube(
+            str(youtube_video_path), title, description, YOUTUBE_TAGS, str(thumbnail_path)
+        )
+        youtube_success = bool(youtube_id)
+        if youtube_success:
+            log.info(f"YouTube upload successful: https://youtu.be/{youtube_id}")
+        else:
+            log.error("YouTube upload failed")
 
-    # 6. Mark segment used, log upload
-    mark_segment_used(segment["id"], date_str)
+    # 7. Upload to TikTok
+    tiktok_id = None
+    tiktok_success = False
+    if do_tiktok and upload_tiktok:
+        tiktok_id = upload_tiktok(str(tiktok_video_path), tiktok_title)
+        tiktok_success = bool(tiktok_id)
+        if tiktok_success:
+            log.info(f"TikTok upload successful: publish_id={tiktok_id}")
+        else:
+            log.error("TikTok upload failed")
+
+    # 8. Mark segment used, log upload
+    # Only mark as used if at least one platform succeeded
+    if youtube_success or tiktok_success:
+        mark_segment_used(segment["id"], date_str)
+
     log_upload(
-        segment["id"], date_str, video_id,
-        str(audio_path), str(video_path),
-        success=bool(video_id),
+        segment["id"],
+        date_str,
+        youtube_id,
+        tiktok_id,
+        str(audio_path),
+        str(youtube_video_path or tiktok_video_path),
+        youtube_success,
+        tiktok_success,
     )
 
-    # 7. Cleanup temp audio
+    # 9. Cleanup temp files
     audio_path.unlink(missing_ok=True)
+    if tiktok_video_path:
+        tiktok_video_path.unlink(missing_ok=True)
 
-    log.info(f"=== Done. Day {day_number} uploaded: {video_id} ===")
+    # Summary
+    results = []
+    if youtube_success:
+        results.append(f"YouTube: {youtube_id}")
+    if tiktok_success:
+        results.append(f"TikTok: {tiktok_id}")
+    if results:
+        log.info(f"=== Done. Day {day_number} uploaded: {', '.join(results)} ===")
+    else:
+        log.error("=== Pipeline complete but all uploads failed ===")
 
 
 def get_next_run_time() -> datetime:
@@ -345,11 +474,19 @@ def main():
     parser.add_argument("--status", action="store_true", help="Show status")
     parser.add_argument(
         "--dry-run", action="store_true",
-        help="Test pipeline without uploading to YouTube",
+        help="Test pipeline without uploading",
     )
     parser.add_argument(
         "--reimport", action="store_true",
         help="Re-extract PDFs (calls pdf_extractor.py --reset)",
+    )
+    parser.add_argument(
+        "--skip-tiktok", action="store_true",
+        help="Skip TikTok upload (YouTube only)",
+    )
+    parser.add_argument(
+        "--tiktok-only", action="store_true",
+        help="Only upload to TikTok (skip YouTube)",
     )
     args = parser.parse_args()
 
@@ -369,12 +506,20 @@ def main():
 
     if args.run:
         # One-time manual run
-        run_daily_pipeline(dry_run=False)
+        run_daily_pipeline(
+            dry_run=False,
+            skip_tiktok=args.skip_tiktok,
+            tiktok_only=args.tiktok_only,
+        )
         return
 
     if args.dry_run:
         # One-time dry run
-        run_daily_pipeline(dry_run=True)
+        run_daily_pipeline(
+            dry_run=True,
+            skip_tiktok=args.skip_tiktok,
+            tiktok_only=args.tiktok_only,
+        )
         return
 
     # Default: run the 24/7 scheduler
