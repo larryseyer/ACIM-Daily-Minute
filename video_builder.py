@@ -13,7 +13,7 @@ import os
 import subprocess
 import textwrap
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 
 from dotenv import load_dotenv
 from PIL import Image, ImageDraw, ImageFont
@@ -37,7 +37,7 @@ FORMAT_CONFIGS = {
         "margin_x": 80,
         "box_pad_x": 40,
         "box_pad_y": 30,
-        "background_file": "background",
+        "background_file": "background-minute",
     },
     "vertical": {
         "width": 1080,
@@ -46,7 +46,7 @@ FORMAT_CONFIGS = {
         "margin_x": 60,
         "box_pad_x": 30,
         "box_pad_y": 25,
-        "background_file": "tiktok",
+        "background_file": "background-minute_tiktok",
     },
 }
 
@@ -132,6 +132,7 @@ def build_video(
     audio_path: str,
     output_path: str,
     format: VideoFormat = "horizontal",
+    background_prefix: Optional[str] = None,
 ) -> bool:
     """
     Render scrolling text video synced to audio.
@@ -141,6 +142,9 @@ def build_video(
         audio_path: Path to the MP3 from ElevenLabs
         output_path: Path to write the final MP4
         format: Video format - "horizontal" (1920x1080) or "vertical" (1080x1920)
+        background_prefix: Optional prefix for background images. When set,
+            uses "{prefix}.jpg" for horizontal and "{prefix}_tiktok.jpg" for vertical.
+            Example: background_prefix="background-lessons" uses "background-lessons.jpg" and "background-lessons_tiktok.jpg"
 
     Returns:
         True on success, False on failure
@@ -156,7 +160,14 @@ def build_video(
     margin_x = config["margin_x"]
     box_pad_x = config["box_pad_x"]
     box_pad_y = config["box_pad_y"]
-    background_file = config["background_file"]
+
+    # Determine background file - use prefix if provided, else default
+    if background_prefix:
+        # Custom background: "prefix" for horizontal, "prefix_tiktok" for vertical
+        background_file = background_prefix if format == "horizontal" else f"{background_prefix}_tiktok"
+    else:
+        background_file = config["background_file"]
+
     text_width = width - (2 * margin_x)
 
     log.info(f"Building {format} video ({width}x{height})")

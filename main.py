@@ -296,7 +296,8 @@ def run_daily_pipeline(
 
     # Ensure output dirs exist
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-    VIDEO_DIR.mkdir(parents=True, exist_ok=True)
+    daily_minute_video_dir = VIDEO_DIR / "daily-minute"
+    daily_minute_video_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. Pick a random unused segment
     segment = pick_random_segment()
@@ -320,7 +321,7 @@ def run_daily_pipeline(
     # 3. Build YouTube video (horizontal 1920x1080)
     youtube_video_path = None
     if do_youtube:
-        youtube_video_path = VIDEO_DIR / f"acim-day-{day_number:04d}-{date_str}.mp4"
+        youtube_video_path = daily_minute_video_dir / f"acim-day-{day_number:04d}-{date_str}.mp4"
         if not build_video(segment["text"], str(audio_path), str(youtube_video_path), format="horizontal"):
             log.error("YouTube video build failed")
             audio_path.unlink(missing_ok=True)
@@ -329,7 +330,7 @@ def run_daily_pipeline(
     # 4. Build TikTok video (vertical 1080x1920)
     tiktok_video_path = None
     if do_tiktok:
-        tiktok_video_path = VIDEO_DIR / f"acim-day-{day_number:04d}-{date_str}-tiktok.mp4"
+        tiktok_video_path = daily_minute_video_dir / f"acim-day-{day_number:04d}-{date_str}-tiktok.mp4"
         if not build_video(segment["text"], str(audio_path), str(tiktok_video_path), format="vertical"):
             log.error("TikTok video build failed")
             # Continue with YouTube if that's enabled
@@ -339,7 +340,7 @@ def run_daily_pipeline(
             do_tiktok = False
 
     # 5. Thumbnail for YouTube
-    thumbnail_path = ASSETS_DIR / "thumbnail.jpg"
+    thumbnail_path = ASSETS_DIR / "thumbnail-minute.jpg"
     if do_youtube:
         if thumbnail_path.exists():
             log.info(f"Using existing thumbnail: {thumbnail_path}")
@@ -421,6 +422,19 @@ def run_daily_pipeline(
         log.info(f"=== Done. Day {day_number} uploaded: {', '.join(results)} ===")
     else:
         log.error("=== Pipeline complete but all uploads failed ===")
+
+    # Run Daily Lessons pipeline (weekdays only, sequential workbook lessons)
+    if not dry_run:
+        try:
+            from lessons import run_lessons_pipeline
+            log.info("=== Triggering Daily Lessons pipeline ===")
+            run_lessons_pipeline(
+                dry_run=False,
+                force=False,  # Respects weekday check
+                skip_tiktok=skip_tiktok,
+            )
+        except Exception as e:
+            log.error(f"Daily Lessons pipeline failed: {e}")
 
 
 def get_next_run_time() -> datetime:
