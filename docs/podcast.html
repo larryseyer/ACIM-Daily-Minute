@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast — ACIM Daily Minute</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Subscribe to the ACIM Daily Minute podcast. Daily readings from A Course in Miracles delivered to your favorite podcast app.">
+    <meta name="author" content="ACIM Daily Minute">
+    <link rel="canonical" href="https://acimdailyminute.org/podcast.html">
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="Podcast — ACIM Daily Minute">
+    <meta property="og:description" content="Subscribe to the ACIM Daily Minute podcast. Daily readings from A Course in Miracles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acimdailyminute.org/podcast.html">
+    <meta property="og:site_name" content="ACIM Daily Minute">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Podcast — ACIM Daily Minute">
+    <meta name="twitter:description" content="Daily ACIM readings delivered to your podcast app.">
+
+    <!-- Theme (must load before paint) -->
+    <script src="theme.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <ul class="site-nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html">Daily Minute</a></li>
+            <li><a href="lessons.html">Lessons</a></li>
+            <li><a href="podcast.html" aria-current="page">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
+        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div id="nav-overlay" class="site-nav__overlay">
+    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="daily-minute.html">Daily Minute</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero page-hero--gold">
+    <span class="label">Podcast</span>
+    <h1>ACIM Daily Minute Podcast</h1>
+    <p class="page-hero__subtitle">Daily readings delivered to your podcast app</p>
+</section>
+
+<!-- Subscribe Section -->
+<section class="container section">
+    <h2 class="section__title">Subscribe</h2>
+
+    <div class="card-grid">
+        <div class="card text-center">
+            <h3>&#127822; Apple Podcasts</h3>
+            <p class="text-muted" style="font-size:0.9rem;">Listen on iPhone, iPad, or Mac.</p>
+            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+        </div>
+        <div class="card text-center">
+            <h3>&#127911; Spotify</h3>
+            <p class="text-muted" style="font-size:0.9rem;">Stream or download on any device.</p>
+            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+        </div>
+        <div class="card text-center">
+            <h3>&#128225; RSS Feed</h3>
+            <p class="text-muted" style="font-size:0.9rem;">Add to any podcast app via RSS.</p>
+            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+        </div>
+    </div>
+
+    <p class="text-muted text-center mt-3" style="font-size:0.85rem;">Podcast feeds are being set up. In the meantime, listen on <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a>.</p>
+</section>
+
+<!-- Podcast Feeds -->
+<section class="container section" style="padding-top:0;">
+    <h2 class="section__title">Three Podcast Feeds</h2>
+    <p class="text-center text-muted mb-3">Each content stream has its own dedicated podcast feed, so you can subscribe to exactly what you want.</p>
+
+    <div class="card-grid">
+        <div class="card">
+            <h3 style="color:var(--color-gold);">&#9832; Daily Minute</h3>
+            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">A one-minute ACIM reading, seven days a week. Short, reflective, perfect for a daily pause.</p>
+            <span class="stream-card__badge stream-card__badge--active mt-2" style="display:inline-block;">Active</span>
+        </div>
+        <div class="card">
+            <h3 style="color:var(--color-blue);">&#9998; Daily Lessons</h3>
+            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">The 365 Workbook Lessons, one per weekday. Follow the Course's own practice sequence.</p>
+            <span class="stream-card__badge stream-card__badge--active mt-2" style="display:inline-block;">Active</span>
+        </div>
+        <div class="card">
+            <h3 style="color:var(--color-text-muted);">&#9733; Text Series</h3>
+            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">The complete ACIM Text, chapter by chapter. Coming after all 365 Lessons are complete.</p>
+            <span class="stream-card__badge stream-card__badge--soon mt-2" style="display:inline-block;">Coming Soon</span>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Episodes -->
+<section class="container section" style="padding-top:0;">
+    <h2 class="section__title">Recent Episodes</h2>
+    <div class="episode-list" id="episode-list"></div>
+</section>
+
+<!-- CTA -->
+<section class="container cta-section">
+    <h2 class="cta-section__title">Also on YouTube</h2>
+    <p class="cta-section__desc">Every reading is also available as a video with on-screen text on our YouTube channel.</p>
+    <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--primary">Daily Minute Playlist</a>
+    <a href="https://www.youtube.com/watch?v=bo_QRE4X7SM&list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline" style="margin-left:0.5rem;">Lessons Playlist</a>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html">Daily Minute</a></li>
+            <li><a href="lessons.html">Lessons</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
+        <p class="site-footer__copy">
+            &copy; 2025 ACIM Daily Minute &middot;
+            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+/* Sample episodes — will be replaced by dynamic data in Phase 4 */
+var SAMPLE_EPISODES = [
+    { title: 'Daily Minute: "There is no order of difficulty in miracles..."', date: 'Apr 10, 2026', duration: '1:12', stream: 'minute' },
+    { title: 'Lesson 98: I will accept my part in God\'s plan for salvation.', date: 'Apr 10, 2026', duration: '3:45', stream: 'lesson' },
+    { title: 'Daily Minute: "Miracles are natural..."', date: 'Apr 9, 2026', duration: '1:08', stream: 'minute' },
+    { title: 'Lesson 97: I am spirit.', date: 'Apr 9, 2026', duration: '2:30', stream: 'lesson' },
+    { title: 'Daily Minute: "The miracle is a learning device..."', date: 'Apr 8, 2026', duration: '1:15', stream: 'minute' }
+];
+
+function renderEpisodes(episodes) {
+    var list = document.getElementById('episode-list');
+    episodes.forEach(function (ep) {
+        var item = document.createElement('div');
+        item.className = 'episode-item';
+
+        var badge = document.createElement('span');
+        badge.className = 'episode-item__badge' + (ep.stream === 'lesson' ? ' episode-item__badge--blue' : '');
+        badge.textContent = ep.stream === 'lesson' ? 'Lesson' : 'Minute';
+
+        var info = document.createElement('div');
+        info.className = 'episode-item__info';
+
+        var title = document.createElement('div');
+        title.className = 'episode-item__title';
+        title.textContent = ep.title;
+
+        var meta = document.createElement('div');
+        meta.className = 'episode-item__meta';
+        meta.textContent = ep.date + ' \u00B7 ' + ep.duration;
+
+        info.appendChild(title);
+        info.appendChild(meta);
+
+        item.appendChild(badge);
+        item.appendChild(info);
+        list.appendChild(item);
+    });
+}
+
+renderEpisodes(SAMPLE_EPISODES);
+</script>
+
+</body>
+</html>

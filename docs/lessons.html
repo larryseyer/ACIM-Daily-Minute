@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Lessons — ACIM Daily Minute</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Follow the 365 Workbook Lessons from A Course in Miracles. One lesson per weekday, delivered as audio and text.">
+    <meta name="author" content="ACIM Daily Minute">
+    <link rel="canonical" href="https://acimdailyminute.org/lessons.html">
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="Daily Lessons — ACIM Daily Minute">
+    <meta property="og:description" content="The 365 Workbook Lessons from A Course in Miracles. One lesson per weekday, delivered as audio and text.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acimdailyminute.org/lessons.html">
+    <meta property="og:site_name" content="ACIM Daily Minute">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Daily Lessons — ACIM Daily Minute">
+    <meta name="twitter:description" content="The 365 Workbook Lessons from A Course in Miracles.">
+
+    <!-- Theme (must load before paint) -->
+    <script src="theme.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <ul class="site-nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html">Daily Minute</a></li>
+            <li><a href="lessons.html" aria-current="page">Lessons</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
+        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div id="nav-overlay" class="site-nav__overlay">
+    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="daily-minute.html">Daily Minute</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero page-hero--blue">
+    <span class="label">Workbook Lessons</span>
+    <h1>Today's Lesson</h1>
+    <p class="page-hero__date" id="lesson-date"></p>
+</section>
+
+<!-- Today's Lesson -->
+<section class="container section">
+    <!-- Progress Bar -->
+    <div class="lesson-progress" id="lesson-progress">
+        <div class="lesson-progress__bar">
+            <div class="lesson-progress__fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <p class="lesson-progress__text">
+            Lesson <span id="lesson-current">0</span> of <span id="lesson-total">365</span>
+        </p>
+    </div>
+
+    <!-- Lesson Card -->
+    <div class="reading-card reading-card--blue" id="today-lesson">
+        <span class="reading-card__label" id="lesson-label"></span>
+        <h3 class="reading-card__title" id="lesson-title"></h3>
+        <div class="reading-card__passage" id="lesson-body"></div>
+        <div class="audio-player" id="lesson-player"></div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="philosophy">
+            <p>"Each day should be devoted to miracles."</p>
+        </div>
+        <p class="text-muted">Today's lesson will appear here soon.</p>
+    </div>
+
+    <!-- Weekend note -->
+    <div id="weekend-note" style="display:none; text-align:center; margin-top:1.5rem;">
+        <p class="text-muted" style="font-style:italic;">Lessons are posted Monday through Friday. The next lesson will post on Monday.</p>
+    </div>
+
+    <div style="text-align:center; margin-top:1.5rem;">
+        <a href="https://www.youtube.com/watch?v=bo_QRE4X7SM&list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline">Watch on YouTube</a>
+    </div>
+</section>
+
+<!-- Lesson Archive -->
+<section class="container section" style="padding-top:0;">
+    <h2 class="section__title">Lesson Archive</h2>
+    <div class="archive-list" id="lesson-archive"></div>
+</section>
+
+<!-- CTA -->
+<section class="container cta-section">
+    <p class="cta-section__desc">365 lessons, one per weekday. Subscribe to follow along.</p>
+    <a href="podcast.html" class="btn btn--outline">Subscribe to Podcast</a>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html">Daily Minute</a></li>
+            <li><a href="lessons.html">Lessons</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
+        <p class="site-footer__copy">
+            &copy; 2025 ACIM Daily Minute &middot;
+            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Audio Player Component -->
+<script src="audio-player.js"></script>
+
+<script>
+/* Sample data — will be replaced by fetch('daily-lesson.json') in Phase 4 */
+var SAMPLE_DATA = {
+    today: {
+        number: 98,
+        title: 'I will accept my part in God\'s plan for salvation.',
+        body: 'Today we will attempt to go past the ego\'s narrow, self-defeating vision, to its plan for "salvation." You are asked to accept your part in God\'s plan for salvation. What is this plan? It is a very simple one, and its simplicity is what makes it so dependable. You are asked only to accept the Atonement for yourself.',
+        date: '2026-04-10',
+        totalLessons: 365,
+        audioUrl: 'audio/lessons/lesson-098.mp3'
+    },
+    archive: [
+        { number: 97, title: 'I am spirit.', date: '2026-04-09', audioUrl: '' },
+        { number: 96, title: 'Salvation comes from my one Self.', date: '2026-04-08', audioUrl: '' },
+        { number: 95, title: 'I am one Self, united with my Creator.', date: '2026-04-07', audioUrl: '' },
+        { number: 94, title: 'I am as God created me.', date: '2026-04-04', audioUrl: '' },
+        { number: 93, title: 'Light and joy and peace abide in me.', date: '2026-04-03', audioUrl: '' }
+    ]
+};
+
+function formatDate(dateStr) {
+    var d = new Date(dateStr + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function renderLesson(data) {
+    if (!data || !data.title) {
+        document.getElementById('today-lesson').style.display = 'none';
+        document.getElementById('lesson-progress').style.display = 'none';
+        document.getElementById('empty-state').style.display = '';
+        return;
+    }
+    document.getElementById('lesson-date').textContent = formatDate(data.date);
+    document.getElementById('lesson-label').textContent = 'Lesson ' + data.number;
+    document.getElementById('lesson-title').textContent = '\u201C' + data.title + '\u201D';
+    document.getElementById('lesson-body').textContent = data.body;
+
+    // Progress
+    var pct = Math.round((data.number / data.totalLessons) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('lesson-current').textContent = data.number;
+    document.getElementById('lesson-total').textContent = data.totalLessons;
+
+    initAudioPlayer('#lesson-player', data.audioUrl, { blue: true });
+
+    // Weekend check
+    var today = new Date();
+    var day = today.getDay();
+    if (day === 0 || day === 6) {
+        document.getElementById('weekend-note').style.display = '';
+    }
+}
+
+function renderLessonArchive(entries) {
+    var list = document.getElementById('lesson-archive');
+    entries.forEach(function (entry) {
+        var item = document.createElement('div');
+        item.className = 'archive-item archive-item--blue';
+
+        var num = document.createElement('span');
+        num.className = 'archive-item__number';
+        num.textContent = '#' + entry.number;
+
+        var passage = document.createElement('span');
+        passage.className = 'archive-item__passage';
+        passage.textContent = entry.title;
+
+        var play = document.createElement('button');
+        play.className = 'archive-item__play';
+        play.setAttribute('aria-label', 'Play lesson ' + entry.number);
+        play.textContent = '\u25B6';
+
+        item.appendChild(num);
+        item.appendChild(passage);
+        item.appendChild(play);
+        list.appendChild(item);
+    });
+}
+
+renderLesson(SAMPLE_DATA.today);
+renderLessonArchive(SAMPLE_DATA.archive);
+
+/* Phase 4: Replace above with:
+fetch('daily-lesson.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        renderLesson(data);
+        // fetch lesson archive separately
+    })
+    .catch(function() {
+        document.getElementById('today-lesson').style.display = 'none';
+        document.getElementById('lesson-progress').style.display = 'none';
+        document.getElementById('empty-state').style.display = '';
+    });
+*/
+</script>
+
+</body>
+</html>

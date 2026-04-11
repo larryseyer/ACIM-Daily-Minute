@@ -851,3 +851,534 @@ p {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+
+/* ============================================================
+   18. PAGE HEROES (Subpage Headers)
+   ============================================================ */
+
+.page-hero {
+    text-align: center;
+    padding: 3.5rem 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--color-border-dim);
+    background: var(--color-bg);
+}
+
+.page-hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 0.25rem;
+}
+
+.page-hero .label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.page-hero__date {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.page-hero__subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.page-hero--gold {
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(212, 175, 55, 0.06) 100%);
+}
+
+.page-hero--gold h1 {
+    color: var(--color-gold);
+}
+
+.page-hero--blue {
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(96, 165, 250, 0.06) 100%);
+}
+
+.page-hero--blue h1 {
+    color: var(--color-blue);
+}
+
+.page-hero--blue .label {
+    color: var(--color-blue);
+}
+
+.page-hero--muted {
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(139, 115, 85, 0.06) 100%);
+}
+
+.page-hero--muted h1 {
+    color: var(--color-text-muted);
+}
+
+.page-hero--muted .label {
+    color: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   19. AUDIO PLAYER
+   ============================================================ */
+
+.audio-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    margin-top: 1.25rem;
+}
+
+.audio-player__btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+    background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+    color: #1a1025;
+}
+
+.audio-player__btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 12px rgba(212, 175, 55, 0.35);
+}
+
+.audio-player--blue .audio-player__btn {
+    background: linear-gradient(135deg, var(--color-blue-dark), var(--color-blue));
+    color: #0f172a;
+}
+
+.audio-player--blue .audio-player__btn:hover {
+    box-shadow: 0 2px 12px rgba(96, 165, 250, 0.35);
+}
+
+.audio-player__progress {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.audio-player__progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    cursor: pointer;
+    border: none;
+    margin-top: -5px;
+}
+
+.audio-player--blue .audio-player__progress::-webkit-slider-thumb {
+    background: var(--color-blue);
+}
+
+.audio-player__progress::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    cursor: pointer;
+    border: none;
+}
+
+.audio-player--blue .audio-player__progress::-moz-range-thumb {
+    background: var(--color-blue);
+}
+
+.audio-player__progress::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+}
+
+.audio-player__progress::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-border);
+}
+
+.audio-player__time {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    min-width: 4.5rem;
+    text-align: right;
+}
+
+.audio-player--loading .audio-player__btn {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.audio-player--error {
+    justify-content: center;
+    opacity: 0.6;
+}
+
+.audio-player__message {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .audio-player {
+        gap: 0.5rem;
+        padding: 0.6rem 0.75rem;
+    }
+
+    .audio-player__btn {
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 0.9rem;
+    }
+
+    .audio-player__time {
+        font-size: 0.7rem;
+        min-width: 3.5rem;
+    }
+}
+
+
+/* ============================================================
+   20. READING CARDS
+   ============================================================ */
+
+.reading-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.reading-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+}
+
+.reading-card--blue::before {
+    background: linear-gradient(90deg, var(--color-blue-dark), var(--color-blue));
+}
+
+.reading-card__label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-gold);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.reading-card--blue .reading-card__label {
+    color: var(--color-blue);
+}
+
+.reading-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--color-text-bright);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.reading-card__passage {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--color-text);
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.reading-card .source-ref {
+    text-align: center;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .reading-card {
+        padding: 1.5rem;
+    }
+
+    .reading-card__passage {
+        font-size: 1.05rem;
+    }
+}
+
+
+/* ============================================================
+   21. LESSON PROGRESS BAR
+   ============================================================ */
+
+.lesson-progress {
+    margin-bottom: 2rem;
+}
+
+.lesson-progress__bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.lesson-progress__fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-blue-dark), var(--color-blue));
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.lesson-progress__text {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+
+/* ============================================================
+   22. ARCHIVE LIST
+   ============================================================ */
+
+.archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.archive-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s;
+}
+
+.archive-item:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.archive-item--blue:hover {
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.archive-item__date {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    min-width: 5.5rem;
+}
+
+.archive-item__number {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-blue);
+    white-space: nowrap;
+    min-width: 3rem;
+}
+
+.archive-item__passage {
+    flex: 1;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--color-text-body);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.archive-item__play {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-gold);
+    background: none;
+    color: var(--color-gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.archive-item__play:hover {
+    background: var(--color-gold);
+    color: #1a1025;
+}
+
+.archive-item--blue .archive-item__play {
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+}
+
+.archive-item--blue .archive-item__play:hover {
+    background: var(--color-blue);
+    color: #0f172a;
+}
+
+@media (max-width: 768px) {
+    .archive-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .archive-item__date {
+        min-width: auto;
+    }
+
+    .archive-item__passage {
+        width: 100%;
+        order: 3;
+    }
+}
+
+
+/* ============================================================
+   23. COMING SOON BLOCK
+   ============================================================ */
+
+.coming-soon {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.coming-soon__icon {
+    font-size: 3rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.coming-soon h2 {
+    color: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   24. EPISODE LIST
+   ============================================================ */
+
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.episode-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s;
+}
+
+.episode-item:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.episode-item__info {
+    flex: 1;
+}
+
+.episode-item__title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--color-text-bright);
+    margin-bottom: 0.25rem;
+}
+
+.episode-item__meta {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.episode-item__badge {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--color-gold);
+    white-space: nowrap;
+}
+
+.episode-item__badge--blue {
+    background: rgba(96, 165, 250, 0.12);
+    color: var(--color-blue);
+}
+
+@media (max-width: 768px) {
+    .episode-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+
+/* ============================================================
+   25. EMPTY STATE
+   ============================================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.empty-state .philosophy {
+    max-width: 500px;
+    margin: 0 auto 1rem;
+    border-left: none;
+    text-align: center;
+    border-radius: var(--radius-sm);
+}

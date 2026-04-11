@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Minute — ACIM Daily Minute</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Today's Daily Minute reading from A Course in Miracles. Listen to a one-minute audio passage and explore past readings.">
+    <meta name="author" content="ACIM Daily Minute">
+    <link rel="canonical" href="https://acimdailyminute.org/daily-minute.html">
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="Daily Minute — ACIM Daily Minute">
+    <meta property="og:description" content="Today's Daily Minute reading from A Course in Miracles. Listen to a one-minute audio passage.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acimdailyminute.org/daily-minute.html">
+    <meta property="og:site_name" content="ACIM Daily Minute">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Daily Minute — ACIM Daily Minute">
+    <meta name="twitter:description" content="Today's Daily Minute reading from A Course in Miracles.">
+
+    <!-- Theme (must load before paint) -->
+    <script src="theme.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <ul class="site-nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html" aria-current="page">Daily Minute</a></li>
+            <li><a href="lessons.html">Lessons</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
+        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div id="nav-overlay" class="site-nav__overlay">
+    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="daily-minute.html">Daily Minute</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="podcast.html">Podcast</a>
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero page-hero--gold">
+    <span class="label">Daily Minute</span>
+    <h1>Today's Reading</h1>
+    <p class="page-hero__date" id="reading-date"></p>
+</section>
+
+<!-- Today's Reading -->
+<section class="container section">
+    <div class="reading-card" id="today-reading">
+        <div class="reading-card__passage" id="reading-passage"></div>
+        <div class="source-ref" id="reading-source"></div>
+        <div class="audio-player" id="today-player"></div>
+    </div>
+
+    <!-- Empty state (shown when no data) -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="philosophy">
+            <p>"Be patient, for you will know when the time of healing is accomplished."</p>
+        </div>
+        <p class="text-muted">Today's reading will appear here soon.</p>
+    </div>
+
+    <div style="text-align:center; margin-top:1.5rem;">
+        <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--outline">Watch on YouTube</a>
+    </div>
+</section>
+
+<!-- Past Readings Archive -->
+<section class="container section" style="padding-top:0;">
+    <h2 class="section__title">Past Readings</h2>
+    <div class="archive-list" id="archive-list"></div>
+</section>
+
+<!-- CTA -->
+<section class="container cta-section">
+    <p class="cta-section__desc">Listen daily on YouTube or your favorite podcast app.</p>
+    <a href="podcast.html" class="btn btn--outline">Subscribe to Podcast</a>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="daily-minute.html">Daily Minute</a></li>
+            <li><a href="lessons.html">Lessons</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
+        <p class="site-footer__copy">
+            &copy; 2025 ACIM Daily Minute &middot;
+            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Audio Player Component -->
+<script src="audio-player.js"></script>
+
+<script>
+/* Sample data — will be replaced by fetch('daily-minute.json') in Phase 4 */
+var SAMPLE_DATA = {
+    today: {
+        date: '2026-04-10',
+        passage: 'There is no order of difficulty in miracles. One is not "harder" or "bigger" than another. They are all the same. All expressions of love are maximal.',
+        source: 'Text, Chapter 1, Section I',
+        audioUrl: 'audio/daily-minute/2026-04-10.mp3'
+    },
+    archive: [
+        { date: '2026-04-09', passage: 'Miracles are natural. When they do not occur something has gone wrong.', source: 'T-1.I.6:1-2', audioUrl: '' },
+        { date: '2026-04-08', passage: 'The miracle is a learning device that lessens the need for time.', source: 'T-1.I.15:1', audioUrl: '' },
+        { date: '2026-04-07', passage: 'Prayer is the medium of miracles. It is a means of communication of the created with the Creator.', source: 'T-1.I.11:1-2', audioUrl: '' },
+        { date: '2026-04-06', passage: 'Miracles are thoughts. Thoughts can represent the lower or bodily level of experience, or the higher or spiritual level of experience.', source: 'T-1.I.12:1-2', audioUrl: '' },
+        { date: '2026-04-05', passage: 'A miracle is a service. It is the maximal service you can render to another.', source: 'T-1.I.18:1-2', audioUrl: '' }
+    ]
+};
+
+function formatDate(dateStr) {
+    var d = new Date(dateStr + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function renderToday(data) {
+    if (!data || !data.passage) {
+        document.getElementById('today-reading').style.display = 'none';
+        document.getElementById('empty-state').style.display = '';
+        return;
+    }
+    document.getElementById('reading-date').textContent = formatDate(data.date);
+    document.getElementById('reading-passage').textContent = '\u201C' + data.passage + '\u201D';
+    document.getElementById('reading-source').textContent = '\u2014 ' + data.source;
+    initAudioPlayer('#today-player', data.audioUrl);
+}
+
+function renderArchive(entries) {
+    var list = document.getElementById('archive-list');
+    entries.forEach(function (entry) {
+        var item = document.createElement('div');
+        item.className = 'archive-item';
+
+        var date = document.createElement('span');
+        date.className = 'archive-item__date';
+        date.textContent = formatDate(entry.date);
+
+        var passage = document.createElement('span');
+        passage.className = 'archive-item__passage';
+        passage.textContent = entry.passage;
+
+        var play = document.createElement('button');
+        play.className = 'archive-item__play';
+        play.setAttribute('aria-label', 'Play reading from ' + entry.date);
+        play.textContent = '\u25B6';
+
+        item.appendChild(date);
+        item.appendChild(passage);
+        item.appendChild(play);
+        list.appendChild(item);
+    });
+}
+
+renderToday(SAMPLE_DATA.today);
+renderArchive(SAMPLE_DATA.archive);
+
+/* Phase 4: Replace above with:
+fetch('daily-minute.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        renderToday(data);
+        // fetch archive separately
+    })
+    .catch(function() {
+        document.getElementById('today-reading').style.display = 'none';
+        document.getElementById('empty-state').style.display = '';
+    });
+*/
+</script>
+
+</body>
+</html>
