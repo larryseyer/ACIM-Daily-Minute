@@ -134,10 +134,6 @@
         </div>
         <div class="costs-breakdown">
             <div class="breakdown-row">
-                <span class="breakdown-service">Content Processing</span>
-                <span class="breakdown-cost" id="claude-cost">--</span>
-            </div>
-            <div class="breakdown-row">
                 <span class="breakdown-service">Audio Production</span>
                 <span class="breakdown-cost" id="elevenlabs-cost">--</span>
             </div>
@@ -256,10 +252,8 @@
             }
             document.getElementById('today-calls').textContent = totalCalls + ' API calls';
 
-            var claude = services.claude || {};
             var elevenlabs = services.elevenlabs || {};
 
-            document.getElementById('claude-cost').textContent = formatCurrency(claude.cost_usd);
             document.getElementById('elevenlabs-cost').textContent = formatCurrency(elevenlabs.cost_usd);
 
             var statusDot = document.getElementById('status-dot');
