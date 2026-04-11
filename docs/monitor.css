@@ -1,0 +1,297 @@
+/* ACIM Daily Minute Operations Dashboard */
+
+/* Dashboard Layout */
+.dashboard {
+    max-width: 1200px;
+    margin: 6rem auto 0;
+    padding: 1.5rem;
+}
+
+.dashboard__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--color-surface, rgba(212,175,55,0.04));
+    border: 1px solid var(--color-border, rgba(212,175,55,0.15));
+    border-radius: var(--radius-lg, 16px);
+}
+
+.dashboard__title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-gold, #d4af37);
+}
+
+.dashboard__header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dashboard__timestamp {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #8b7355);
+}
+
+/* Grid */
+.dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard__header {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+}
+
+/* Cards */
+.monitor-card {
+    background: var(--color-surface, rgba(212,175,55,0.04));
+    border: 1px solid var(--color-border, rgba(212,175,55,0.15));
+    border-radius: var(--radius-lg, 16px);
+    overflow: hidden;
+}
+
+.monitor-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border, rgba(212,175,55,0.15));
+}
+
+.monitor-card__header h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-muted, #8b7355);
+    margin: 0;
+}
+
+.monitor-card__body {
+    padding: 1.25rem;
+}
+
+/* Status Badges */
+.monitor-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.monitor-badge--running,
+.monitor-badge--online,
+.monitor-badge--ok,
+.monitor-badge--completed {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.monitor-badge--warning,
+.monitor-badge--degraded {
+    background: rgba(234, 179, 8, 0.15);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.monitor-badge--error,
+.monitor-badge--offline {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.monitor-badge--unknown,
+.monitor-badge--idle,
+.monitor-badge--sample_data,
+.monitor-badge--coming_soon {
+    background: rgba(100, 116, 139, 0.15);
+    color: var(--color-text-muted, #94a3b8);
+    border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+/* Stat Rows */
+.monitor-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, rgba(212,175,55,0.08));
+}
+
+.monitor-stat:last-child {
+    border-bottom: none;
+}
+
+.monitor-stat__label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #8b7355);
+}
+
+.monitor-stat__value {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text, #e8d5b0);
+}
+
+/* Stream Rows */
+.stream-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.stream-row__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.stream-row__name--gold {
+    color: var(--color-gold, #d4af37);
+}
+
+.stream-row__name--blue {
+    color: var(--color-blue, #60a5fa);
+}
+
+.stream-row__name--muted {
+    color: var(--color-text-muted, #8b7355);
+}
+
+/* Cost Items */
+.cost-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, rgba(212,175,55,0.08));
+}
+
+.cost-item:last-of-type {
+    border-bottom: none;
+}
+
+.cost-item__service {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text, #e8d5b0);
+}
+
+.cost-item__calls {
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #8b7355);
+}
+
+.cost-item__amount {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #22c55e;
+    min-width: 50px;
+    text-align: right;
+}
+
+.monitor-cost-badge {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-gold, #d4af37);
+}
+
+/* Cost Projections */
+.cost-projection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(212, 175, 55, 0.08);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.cost-projection__label {
+    font-size: 0.8rem;
+    color: var(--color-gold, #d4af37);
+}
+
+.cost-projection__value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gold, #d4af37);
+}
+
+/* Budget Bar */
+.budget-bar {
+    margin-top: 0.75rem;
+}
+
+.budget-bar__label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #8b7355);
+    margin-bottom: 0.35rem;
+}
+
+.budget-bar__track {
+    height: 8px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.budget-bar__fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gold, #d4af37), #f0c956);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* Feed Links */
+.feed-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border, rgba(212,175,55,0.08));
+}
+
+.feed-link:last-child {
+    border-bottom: none;
+}
+
+.feed-link__label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #8b7355);
+}
+
+.feed-link__url {
+    font-size: 0.8rem;
+    color: var(--color-gold, #d4af37);
+    text-decoration: none;
+}
+
+.feed-link__url:hover {
+    text-decoration: underline;
+}
+
+/* Stale Indicator */
+.dashboard.stale .monitor-card {
+    opacity: 0.6;
+}

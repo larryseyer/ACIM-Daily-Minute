@@ -1382,3 +1382,26 @@ p {
     text-align: center;
     border-radius: var(--radius-sm);
 }
+
+
+/* ============================================================
+   26. SKIP LINK (Accessibility)
+   ============================================================ */
+
+.skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 0;
+    background: var(--color-gold);
+    color: var(--color-bg);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10000;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}

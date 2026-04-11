@@ -1,72 +1,89 @@
-# Session Continuation - 2026-04-10
+# Session Continuation - 2026-04-10 (Session 2)
 
 ## Current State
-Phases 1 and 2 of the ACIM Daily Minute website are complete and live at https://www.acimdailyminute.org. The site has 7 HTML pages, a shared audio player component, and a full CSS design system (1,384 lines). All pages currently use inline sample data. **Phase 3 (Data Files & Feeds)** is next — creating the JSON/XML data files that the backend will push to and the content pages will fetch from.
+**Phases 1-5 complete.** All website pages are deployed with full SEO, favicons, accessibility, and a monitor dashboard. The backend has `push_monitor()` integrated but hasn't run yet — first real run is tonight at 2:00 AM Central on 2026-04-11. Cross-browser and mobile testing remain as manual tasks.
 
 ## What Was Done This Session
-- Completed Phase 1: website shell (index, about, support pages, CSS design system, theme toggle)
-- Completed Phase 2: content pages (daily-minute, lessons, podcast, text-series)
-- Created `audio-player.js` — shared audio player with custom UI wrapping HTML5 `<audio>`, handles missing audio gracefully
-- Added CSS sections 18-25 to `style.css` (~530 lines: page heroes, audio player, reading cards, lesson progress bar, archive list, coming soon, episode list, empty state)
-- Updated navigation on all 7 pages (Home | Daily Minute | Lessons | Podcast | About | Support)
-- Homepage stream cards now link to their content pages
-- Fixed HTTPS — SSL certificate was never provisioned by GitHub Pages; resolved by removing/re-adding custom domain via `gh api` to trigger fresh Let's Encrypt cert
-- Enabled HTTPS enforcement — all HTTP redirects to HTTPS
-- Updated master plan with full status and session notes
+
+### Phase 4 Remaining (completed)
+- **Verified end-to-end push** — Live site still shows sample data; backend 2:00 AM run hasn't happened yet
+- **Added `push_monitor()` to backend** — New function in `github_push.py`, integrated into `main.py` (step 9b) and `lessons.py` (step 7b) with try/except wrappers
+- **Created `monitor.html`** — Operations dashboard with 4 cards (System Status, Stream Health, API Costs, Feed Status), polls `monitor.json` every 10 seconds, visibility API pause/resume, stale data detection
+
+### Phase 5 (completed)
+- **Brand assets discovered** — Found professional images in backend repo (`acim-daily-minute/images/` and `acim-daily-minute/assets/`), used them instead of generating new ones
+- **OG image** — Resized FB banner (1536x1024) to 1200x630 standard OG size via `sips`
+- **Apple touch icon** — Resized square logo (1024x1024) to 180x180
+- **Podcast artwork** — Copied square logo for Daily Minute, cropped/converted lessons thumbnail for Daily Lessons
+- **Favicon** — Created SVG favicon (gold "A" on dark purple circle)
+- **og:image + twitter:image** — Added to all 7 content pages, upgraded twitter:card to summary_large_image
+- **404 page** — Custom error page with ACIM quote ("Nothing real can be threatened...")
+- **Accessibility** — Skip-link on all 9 pages, `id="main-content"` on all pages, skip-link CSS (section 26)
+- **Dashboard footer link** — Added to all 9 pages
 
 ## Key Decisions Made
 | Decision | Rationale |
 |----------|-----------|
-| Custom audio player (not native `<audio controls>`) | Native controls render differently across browsers and clash with the gold/purple design |
-| Inline sample data in `<script>` blocks | Pages look functional during dev; swap to `fetch()` is a one-line change in Phase 4 |
-| 3 separate podcast feeds (minute, lessons, text) | Users subscribe to exactly the streams they want |
-| Audio player shows "Audio coming soon" on 404 | Graceful degradation since no MP3 files exist yet |
-| CNAME set to `www.acimdailyminute.org` | www subdomain with apex redirect is the standard GitHub Pages pattern |
-| 6 nav links (no Text Series in nav) | Text Series is "Coming Soon" — reached via homepage stream card instead |
+| Used existing brand images for OG/favicon/podcast artwork | Already professional-quality assets in backend repo — no need to generate new ones |
+| SVG favicon only (no PNG variants) | Modern browsers all support SVG; avoids needing image conversion toolchain |
+| monitor.html is unlisted from nav but linked in footer | Accessible via direct URL and footer, but doesn't clutter main navigation |
+| meta robots noindex on monitor.html | Internal operations page shouldn't appear in search results |
+| Skip-link on all 9 pages including monitor and 404 | Consistent accessibility regardless of page type |
 
-## Bugs Found / Fixed
-- **HTTPS not working**: GitHub Pages never provisioned an SSL cert for the custom domain. The cert was `*.github.io` (generic wildcard) instead of the custom domain. Fixed by removing the CNAME via `gh api`, re-adding it to trigger a fresh Let's Encrypt certificate request, then enabling `https_enforced=true` once the cert was approved.
+## Files Created/Modified
 
-## Files Modified
-- `docs/index.html` — Updated nav/footer (6 links), stream cards wrapped in `<a>` tags, "Read More" links to daily-minute.html, podcast card links to podcast.html
-- `docs/about.html` — Updated nav/footer (6 links)
-- `docs/support.html` — Updated nav/footer (6 links)
-- `docs/style.css` — Added sections 18-25 (~530 lines): page heroes, audio player, reading cards, lesson progress, archive list, coming soon, episode list, empty state
-- `docs/audio-player.js` — **NEW** — Shared audio player component (~120 lines)
-- `docs/daily-minute.html` — **NEW** — Today's reading + archive + audio player
-- `docs/lessons.html` — **NEW** — Today's lesson + progress bar + archive + blue audio player
-- `docs/podcast.html` — **NEW** — Subscribe cards + feed descriptions + episode list
-- `docs/text-series.html` — **NEW** — Coming Soon placeholder with "What to Expect" cards
+### Website repo (`ACIMDailyMinute/docs/`)
+- `monitor.html` — **NEW** — operations dashboard page
+- `monitor.css` — **NEW** — dashboard styles (cards, badges, budget bar, feed links)
+- `monitor.js` — **NEW** — 10-second polling, DOM updates, visibility API, stale detection
+- `favicon.svg` — **NEW** — gold "A" on dark purple circle
+- `404.html` — **NEW** — custom error page with ACIM quote
+- `assets/og-image.png` — **NEW** — resized from FB banner (1200x630)
+- `assets/apple-touch-icon.png` — **NEW** — resized from square logo (180x180)
+- `assets/podcast-minute-artwork.png` — **NEW** — copied square logo (1024x1024)
+- `assets/podcast-lessons-artwork.png` — **NEW** — cropped from lessons thumbnail (1080x1080)
+- `style.css` — Added section 26: SKIP LINK
+- `index.html` — Favicon, og:image, skip-link, main-content ID, Dashboard footer link
+- `about.html` — Same changes as index.html
+- `support.html` — Same changes
+- `daily-minute.html` — Same changes
+- `lessons.html` — Same changes
+- `podcast.html` — Same changes
+- `text-series.html` — Same changes
 
-## Next Steps (Priority Order)
-1. **Phase 3: Data Files & Feeds** — Create JSON data files, RSS feed, podcast XML feeds, Alexa JSON, monitor JSON, archive index
-2. Wire up `daily-minute.html` and `lessons.html` to `fetch()` from JSON files instead of inline sample data
-3. Update `podcast.html` subscribe links to point to actual feed URLs once feeds exist
-4. Validate all feeds with RSS/podcast validators
-5. **Phase 4: Backend Integration** — Add GitHub API push to the Python backend so it updates JSON/XML files after each upload
+### Backend repo (`acim-daily-minute/`)
+- `github_push.py` — Added `push_monitor()` function (~45 lines)
+- `main.py` — Added step 9b: push_monitor() call after pipeline
+- `lessons.py` — Added step 7b: push_monitor() call after pipeline
+
+## Remaining Work
+1. **Manual: Cross-browser testing** — Open each page in Chrome, Safari, Firefox
+2. **Manual: Mobile testing** — Test responsive layout on phone/tablet
+3. **Manual: Restart backend** — Restart `start.sh` on Intel Mac to pick up push_monitor() changes
+4. **Verify 2:00 AM push** — Check `https://www.acimdailyminute.org/daily-minute.json` after the run
+5. **Git commit and push** — All changes are local, need to be committed and pushed
 
 ## Context the Next Session Needs
-- Master plan is at `/Users/larryseyer/.claude/plans/structured-floating-hickey.md` — has full data file schemas, Phase 3 checklist, and architecture details
-- The JSON schema for `daily-minute.json`, `daily-lesson.json`, and `text-series.json` is defined in the master plan under "Data Files (Machine-Facing)"
-- Podcast feeds need iTunes-compatible XML with proper enclosure tags — 3 separate feeds: `podcast-minute.xml`, `podcast-lessons.xml`, `podcast-text.xml`
-- The backend project is at `/Users/larryseyer/acim-daily-minute` (Intel Mac) — Phase 4 will modify `main.py` there
-- JTFNews at `/Volumes/MacLive/Users/larryseyer/JTFNews` has reference implementations for RSS feeds, podcast XML, archive compression, and GitHub API push
-- `audio-player.js` uses `initAudioPlayer(selector, src, {blue: true})` — the `blue` option switches to blue accent for lessons
-- No actual audio files exist on the website yet — the audio player gracefully shows "Audio coming soon"
-- The `style.css` section numbering goes up to 25 now — new sections should start at 26
+- Master plan: `/Users/larryseyer/.claude/plans/structured-floating-hickey.md` — Phases 1-5 complete
+- The backend needs to be restarted on Intel to pick up the push_monitor() changes
+- **Python runs on Intel machine ONLY**
+- Podcast artwork PNGs now exist and match the filenames referenced in podcast XML feeds
+- The `source_reference` field still shows PDF filenames — a future refinement
+- Phase 6 (iOS App) is the next major milestone — separate plan needed
 
-## Commands to Run First
+## Commands to Run
 ```bash
-# Start local dev server to test changes
+# Commit and push all website changes
 cd /Volumes/MacLive/Users/larryseyer/ACIMDailyMinute
-python3 -m http.server 8080 --directory docs
+git add docs/
+git commit -m "Add Phase 4-5: monitor dashboard, SEO, favicon, 404, accessibility"
+git push
 
-# Verify current state
-git status
-git log --oneline -5
+# Restart backend on Intel to pick up push_monitor() changes
+# (run on Intel Mac, not M4)
+cd /Users/larryseyer/acim-daily-minute
+./start.sh
+
+# Verify after 2:00 AM run
+curl -s https://www.acimdailyminute.org/daily-minute.json | head -5
 ```
-
-## Open Questions
-- What are the actual podcast feed URLs? (Apple Podcasts, Spotify submission happens after feeds exist)
-- Should `monitor.html` be publicly accessible or hidden/unlisted?
-- For the archive format (`archive/YYYY/MM-DD.txt.gz`), should we match JTFNews pipe-delimited format exactly or adapt it?
