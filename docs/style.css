@@ -1,0 +1,853 @@
+/* ============================================================
+   ACIM Daily Minute — Shared Stylesheet
+   Warm, spiritual design system with golden sunrise aesthetic.
+   Where noise retreats, peace enters.
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET
+   ============================================================ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   2. DESIGN TOKENS (Dark Mode — Default)
+   ============================================================ */
+
+:root {
+    /* Backgrounds */
+    --color-bg:         #1a1025;
+    --color-bg-deep:    #0f0a18;
+    --color-bg-alt:     #2d1b3d;
+    --color-surface:    rgba(26, 16, 37, 0.75);
+
+    /* Borders */
+    --color-border:     rgba(255, 255, 255, 0.1);
+    --color-border-dim: rgba(255, 255, 255, 0.05);
+
+    /* Brand: Gold */
+    --color-gold:       #d4af37;
+    --color-gold-light: #f0c956;
+    --color-gold-dark:  #b8942a;
+    --color-gold-glow:  rgba(212, 175, 55, 0.5);
+
+    /* Accent: Blue (Daily Lessons) */
+    --color-blue:       #60a5fa;
+    --color-blue-dark:  #1e40af;
+
+    /* Text hierarchy */
+    --color-text:        #e8d5b0;
+    --color-text-body:   #d4c4a0;
+    --color-text-muted:  #8b7355;
+    --color-text-dim:    #6b5e4a;
+    --color-text-bright: #fff8e7;
+
+    /* Semantic */
+    --color-green:  #22c55e;
+    --color-red:    #ef4444;
+
+    /* Typography */
+    --font-serif:   Georgia, 'Times New Roman', serif;
+    --font-sans:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Layout */
+    --max-width:     900px;
+    --radius:        12px;
+    --radius-sm:     8px;
+    --radius-lg:     16px;
+    --radius-pill:   24px;
+
+    /* Hero gradient */
+    --hero-gradient: linear-gradient(180deg,
+        #1a1025 0%, #2d1b3d 15%, #4a2a1a 40%,
+        #b8742d 65%, #d4af37 80%, #f0c956 90%, #ffeaaa 100%);
+
+    /* Navigation */
+    --nav-bg: rgba(26, 16, 37, 0.85);
+
+    /* Cards */
+    --card-bg:      rgba(212, 175, 55, 0.04);
+    --card-border:  rgba(212, 175, 55, 0.15);
+
+    /* Glass */
+    --glass-bg:     rgba(0, 0, 0, 0.35);
+    --glass-border: rgba(212, 175, 55, 0.25);
+}
+
+
+/* ============================================================
+   3. LIGHT MODE TOKENS
+   ============================================================ */
+
+[data-theme="light"] {
+    --color-bg:         #faf6ef;
+    --color-bg-deep:    #f0e8d8;
+    --color-bg-alt:     #e8dcc8;
+    --color-surface:    rgba(250, 246, 239, 0.85);
+
+    --color-border:     rgba(0, 0, 0, 0.1);
+    --color-border-dim: rgba(0, 0, 0, 0.05);
+
+    --color-gold:       #b8942a;
+    --color-gold-light: #d4af37;
+    --color-gold-dark:  #96771e;
+    --color-gold-glow:  rgba(184, 148, 42, 0.2);
+
+    --color-text:        #2d1b3d;
+    --color-text-body:   #4a3560;
+    --color-text-muted:  #7a6b5a;
+    --color-text-dim:    #a09080;
+    --color-text-bright: #1a1025;
+
+    --nav-bg: rgba(250, 246, 239, 0.9);
+
+    --card-bg:      rgba(212, 175, 55, 0.06);
+    --card-border:  rgba(212, 175, 55, 0.2);
+
+    --glass-bg:     rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(212, 175, 55, 0.3);
+
+    --hero-gradient: linear-gradient(180deg,
+        #faf6ef 0%, #f5edd8 15%, #e8d5a8 40%,
+        #d4af37 65%, #b8942a 80%, #96771e 90%, #7a5c10 100%);
+}
+
+
+/* ============================================================
+   4. BASE STYLES
+   ============================================================ */
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--color-gold-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* ============================================================
+   5. TYPOGRAPHY
+   ============================================================ */
+
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    color: var(--color-gold);
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    color: var(--color-text-body);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.passage {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--color-text);
+}
+
+.source-ref {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-text-muted);
+    margin-top: 0.75rem;
+}
+
+.label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-gold);
+}
+
+
+/* ============================================================
+   6. LAYOUT
+   ============================================================ */
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section {
+    padding: 3rem 0;
+}
+
+.section__title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+/* ============================================================
+   7. NAVIGATION
+   ============================================================ */
+
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border-dim);
+}
+
+.site-nav__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.site-nav__logo {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--color-gold) !important;
+    white-space: nowrap;
+}
+
+.site-nav__links {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    margin-left: auto;
+}
+
+.site-nav__links a {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    transition: color 0.2s;
+}
+
+.site-nav__links a:hover,
+.site-nav__links a[aria-current="page"] {
+    color: var(--color-gold);
+}
+
+/* Hamburger toggle */
+.site-nav__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+}
+
+.site-nav__toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 1px;
+    transition: transform 0.2s;
+}
+
+/* Mobile overlay */
+.site-nav__overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: var(--color-bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.site-nav__overlay.open {
+    display: flex;
+}
+
+.site-nav__overlay a {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--color-text);
+}
+
+.site-nav__overlay a:hover {
+    color: var(--color-gold);
+}
+
+.site-nav__close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .site-nav__links {
+        display: none;
+    }
+
+    .site-nav__toggle {
+        display: flex;
+    }
+
+    .theme-toggle {
+        margin-left: auto;
+    }
+}
+
+
+/* ============================================================
+   8. HERO SECTION
+   ============================================================ */
+
+.hero {
+    background: var(--hero-gradient);
+    text-align: center;
+    padding: 6rem 1.5rem 4rem;
+    position: relative;
+}
+
+.hero--full {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1.5rem 3rem;
+}
+
+.hero__brand {
+    margin-bottom: 0.5rem;
+}
+
+.hero__brand-acim {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    color: var(--color-gold);
+    letter-spacing: 4px;
+    text-shadow: 0 2px 20px var(--color-gold-glow);
+}
+
+.hero__brand-daily {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    font-style: italic;
+    color: var(--color-text-bright);
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    margin-top: -0.25rem;
+}
+
+.hero__subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-text);
+    margin-top: 1rem;
+    max-width: 500px;
+    line-height: 1.6;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero__scroll {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    text-align: center;
+    animation: hero-bob 2s ease-in-out infinite;
+}
+
+.hero__scroll-arrow {
+    font-size: 1.2rem;
+    margin-top: 0.15rem;
+}
+
+@keyframes hero-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+
+/* ============================================================
+   9. GLASS CARDS
+   ============================================================ */
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--glass-border);
+    max-width: 600px;
+    margin: 2rem auto 0;
+}
+
+.glass-card__label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--color-gold);
+    margin-bottom: 0.75rem;
+}
+
+.glass-card__passage {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text);
+}
+
+.glass-card__actions {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+
+/* ============================================================
+   10. CONTENT STREAM CARDS
+   ============================================================ */
+
+.stream-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stream-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.stream-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
+
+.stream-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Gold accent — Daily Minute */
+.stream-card--gold::before {
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+}
+
+.stream-card--gold:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.stream-card--gold .stream-card__icon {
+    color: var(--color-gold);
+}
+
+/* Blue accent — Daily Lessons */
+.stream-card--blue::before {
+    background: linear-gradient(90deg, var(--color-blue-dark), var(--color-blue));
+}
+
+.stream-card--blue:hover {
+    border-color: rgba(96, 165, 250, 0.35);
+}
+
+.stream-card--blue .stream-card__icon {
+    color: var(--color-blue);
+}
+
+/* Muted — Text Series (Coming Soon) */
+.stream-card--muted {
+    opacity: 0.55;
+}
+
+.stream-card--muted::before {
+    background: var(--color-text-muted);
+}
+
+.stream-card__icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.stream-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--color-text-bright);
+    margin-bottom: 0.35rem;
+}
+
+.stream-card__desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.stream-card__badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-pill);
+    margin-top: 0.75rem;
+}
+
+.stream-card__badge--active {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--color-green);
+}
+
+.stream-card__badge--soon {
+    background: rgba(139, 115, 85, 0.15);
+    color: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   11. STANDARD CARDS
+   ============================================================ */
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+}
+
+.card h3 {
+    color: var(--color-text-bright);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+
+/* ============================================================
+   12. BUTTONS
+   ============================================================ */
+
+.btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    line-height: 1.4;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Primary — gold gradient */
+.btn--primary {
+    background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+    color: #1a1025;
+    box-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
+}
+
+.btn--primary:hover {
+    color: #1a1025;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.45);
+}
+
+/* Secondary — blue */
+.btn--secondary {
+    background: var(--color-blue);
+    color: #0f172a;
+}
+
+.btn--secondary:hover {
+    color: #0f172a;
+    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.35);
+}
+
+/* Outline */
+.btn--outline {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.btn--outline:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+/* Ghost — subtle, for glass cards */
+.btn--ghost {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold);
+    font-size: 0.8rem;
+    padding: 0.5rem 1.25rem;
+}
+
+.btn--ghost:hover {
+    background: rgba(212, 175, 55, 0.25);
+    color: var(--color-gold);
+}
+
+.btn--ghost-light {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--color-text);
+    font-size: 0.8rem;
+    padding: 0.5rem 1.25rem;
+}
+
+.btn--ghost-light:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--color-text-bright);
+}
+
+.btn--disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   13. PHILOSOPHY / CALLOUT BLOCKS
+   ============================================================ */
+
+.philosophy {
+    border-left: 3px solid var(--color-gold);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--card-bg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.philosophy p {
+    color: var(--color-text);
+    margin-bottom: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   14. CTA / MISSION SECTION
+   ============================================================ */
+
+.cta-section {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.cta-section__title {
+    font-family: var(--font-serif);
+    color: var(--color-gold);
+    margin-bottom: 0.75rem;
+}
+
+.cta-section__desc {
+    color: var(--color-text-muted);
+    max-width: 550px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+
+.site-footer {
+    border-top: 1px solid var(--color-border-dim);
+    padding: 2.5rem 1.5rem;
+    margin-top: 2rem;
+    background: var(--color-bg-deep);
+}
+
+.site-footer__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.site-footer__links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.site-footer__links a {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.site-footer__links a:hover {
+    color: var(--color-gold);
+}
+
+.site-footer__tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.75rem;
+}
+
+.site-footer__copy {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+}
+
+.site-footer__copy a {
+    color: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   16. THEME TOGGLE
+   ============================================================ */
+
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-gold);
+}
+
+.theme-toggle--overlay {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1.25rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+
+/* ============================================================
+   17. UTILITY CLASSES
+   ============================================================ */
+
+.text-center { text-align: center; }
+.text-muted  { color: var(--color-text-muted); }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code / Superpowers
+.claude/
+.superpowers/
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# Python (for any future scripts)
+__pycache__/
+*.pyc
+venv/
+
+# Build
+build/
+
+# Session working files
+SESSION_STATE.md

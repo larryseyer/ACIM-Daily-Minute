@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — ACIM Daily Minute</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Support ACIM Daily Minute — a free, ad-free, viewer-supported service delivering daily readings from A Course in Miracles. Your contributions keep the Course accessible to all.">
+    <meta name="author" content="ACIM Daily Minute">
+    <link rel="canonical" href="https://acimdailyminute.org/support.html">
+
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content="Support — ACIM Daily Minute">
+    <meta property="og:description" content="A free, viewer-supported service delivering daily readings from A Course in Miracles. Your contributions keep the Course accessible to all.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acimdailyminute.org/support.html">
+    <meta property="og:site_name" content="ACIM Daily Minute">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Support — ACIM Daily Minute">
+    <meta name="twitter:description" content="A free, viewer-supported service delivering daily readings from A Course in Miracles.">
+
+    <!-- Theme (must load before paint) -->
+    <script src="theme.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <ul class="site-nav__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html" aria-current="page">Support</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
+        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div id="nav-overlay" class="site-nav__overlay">
+    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+</div>
+
+<div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+
+    <h1>Support ACIM Daily Minute</h1>
+    <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 2rem;">The Course should be available to everyone. Your support makes that possible.</p>
+
+    <!-- Why Support -->
+    <h2>Why This Matters</h2>
+
+    <p>ACIM Daily Minute delivers the teachings of A Course in Miracles freely — no ads, no subscriptions, no paywalls. Every reading, every audio recording, every video is available to anyone who seeks it, at no cost.</p>
+
+    <p>But producing this content does have real costs. Professional-quality audio is generated daily using AI voice synthesis. Videos are created and uploaded to YouTube and TikTok. This website and its data infrastructure are maintained to serve readers and listeners around the world.</p>
+
+    <div class="philosophy">
+        <p>"To give and to receive are one in truth."</p>
+    </div>
+
+    <!-- What Your Support Covers -->
+    <h2>What Your Contribution Supports</h2>
+
+    <div class="card-grid">
+        <div class="card">
+            <h3>&#127908; Audio Production</h3>
+            <p style="margin-bottom: 0;">ElevenLabs AI voice synthesis generates natural, professional-quality readings for every passage and lesson, every day.</p>
+        </div>
+        <div class="card">
+            <h3>&#127760; Hosting &amp; Infrastructure</h3>
+            <p style="margin-bottom: 0;">Website hosting, data storage, content delivery, and the automated pipeline that keeps everything running without interruption.</p>
+        </div>
+        <div class="card">
+            <h3>&#128249; Video Production</h3>
+            <p style="margin-bottom: 0;">Daily video creation with on-screen text and audio, published to YouTube and TikTok for maximum accessibility.</p>
+        </div>
+    </div>
+
+    <div class="philosophy" style="margin-top: 2rem;">
+        <p>"No ads. No tracking. No paywalls. Just the Course, delivered freely."</p>
+    </div>
+
+    <!-- How to Support -->
+    <h2>How to Support</h2>
+
+    <div class="card-grid">
+        <div class="card text-center">
+            <h3>&#128156; Donate</h3>
+            <p>Direct financial support through PayPal. Every dollar goes to operational costs — audio, video, and hosting.</p>
+            <!-- TODO: Replace # with PayPal hosted button URL -->
+            <a href="#" class="btn btn--primary" style="display: inline-block; margin-top: 0.75rem;">Donate via PayPal</a>
+        </div>
+        <div class="card text-center">
+            <h3>&#128227; Share</h3>
+            <p>Tell others about ACIM Daily Minute. Share the YouTube channel, recommend the podcast, or send someone to this website.</p>
+            <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--outline" style="display: inline-block; margin-top: 0.75rem;">Share on YouTube</a>
+        </div>
+        <div class="card text-center">
+            <h3>&#128588; Subscribe</h3>
+            <p>Subscribe to the YouTube channel and podcast. Each subscriber helps more people discover the Course's teachings.</p>
+            <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--outline" style="display: inline-block; margin-top: 0.75rem;">YouTube Channel</a>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <p class="text-muted">Every contribution, every share, every subscription helps bring A Course in Miracles to someone new.</p>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <ul class="site-footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
+        <p class="site-footer__copy">
+            &copy; 2025 ACIM Daily Minute &middot;
+            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
