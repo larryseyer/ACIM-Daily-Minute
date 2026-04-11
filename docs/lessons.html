@@ -139,24 +139,7 @@
 <script src="audio-player.js"></script>
 
 <script>
-/* Sample data — will be replaced by fetch('daily-lesson.json') in Phase 4 */
-var SAMPLE_DATA = {
-    today: {
-        number: 98,
-        title: 'I will accept my part in God\'s plan for salvation.',
-        body: 'Today we will attempt to go past the ego\'s narrow, self-defeating vision, to its plan for "salvation." You are asked to accept your part in God\'s plan for salvation. What is this plan? It is a very simple one, and its simplicity is what makes it so dependable. You are asked only to accept the Atonement for yourself.',
-        date: '2026-04-10',
-        totalLessons: 365,
-        audioUrl: 'audio/lessons/lesson-098.mp3'
-    },
-    archive: [
-        { number: 97, title: 'I am spirit.', date: '2026-04-09', audioUrl: '' },
-        { number: 96, title: 'Salvation comes from my one Self.', date: '2026-04-08', audioUrl: '' },
-        { number: 95, title: 'I am one Self, united with my Creator.', date: '2026-04-07', audioUrl: '' },
-        { number: 94, title: 'I am as God created me.', date: '2026-04-04', audioUrl: '' },
-        { number: 93, title: 'Light and joy and peace abide in me.', date: '2026-04-03', audioUrl: '' }
-    ]
-};
+/* Fetch today's lesson from data file */
 
 function formatDate(dateStr) {
     var d = new Date(dateStr + 'T12:00:00');
@@ -217,22 +200,37 @@ function renderLessonArchive(entries) {
     });
 }
 
-renderLesson(SAMPLE_DATA.today);
-renderLessonArchive(SAMPLE_DATA.archive);
-
-/* Phase 4: Replace above with:
 fetch('daily-lesson.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        renderLesson(data);
-        // fetch lesson archive separately
+    .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
     })
-    .catch(function() {
+    .then(function(data) {
+        renderLesson({
+            number: data.lesson_id,
+            title: data.title,
+            body: data.text,
+            date: data.date,
+            totalLessons: data.total_lessons,
+            audioUrl: data.audio_url
+        });
+        if (data.archive && data.archive.length) {
+            renderLessonArchive(data.archive.map(function(entry) {
+                return {
+                    number: entry.lesson_id,
+                    title: entry.title,
+                    date: entry.date,
+                    audioUrl: entry.audio_url
+                };
+            }));
+        }
+    })
+    .catch(function(err) {
+        console.warn('Failed to load daily-lesson.json:', err);
         document.getElementById('today-lesson').style.display = 'none';
         document.getElementById('lesson-progress').style.display = 'none';
         document.getElementById('empty-state').style.display = '';
     });
-*/
 </script>
 
 </body>

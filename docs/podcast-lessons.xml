@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ACIM Daily Lessons</title>
+    <link>https://www.acimdailyminute.org</link>
+    <language>en-us</language>
+    <copyright>Public domain text; audio CC BY-SA 4.0</copyright>
+    <itunes:author>ACIM Daily Minute</itunes:author>
+    <itunes:owner>
+      <itunes:name>ACIM Daily Minute</itunes:name>
+      <itunes:email>podcast@acimdailyminute.org</itunes:email>
+    </itunes:owner>
+    <description>The 365 Workbook Lessons from A Course in Miracles, one per weekday. Follow the Course's own practice sequence at your own pace.</description>
+    <itunes:image href="https://www.acimdailyminute.org/assets/podcast-lessons-artwork.png"/>
+    <itunes:category text="Religion &amp; Spirituality"/>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <atom:link href="https://www.acimdailyminute.org/podcast-lessons.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Lesson 98: I will accept my part in God's plan for salvation.</title>
+      <description>Today we will attempt to go past the ego's narrow, self-defeating vision, to its plan for "salvation." You are asked to accept your part in God's plan for salvation. What is this plan? It is a very simple one, and its simplicity is what makes it so dependable.</description>
+      <content:encoded><![CDATA[<p><strong>Lesson 98</strong></p><p>"I will accept my part in God's plan for salvation."</p><p>Today we will attempt to go past the ego's narrow, self-defeating vision, to its plan for "salvation." You are asked to accept your part in God's plan for salvation. What is this plan? It is a very simple one, and its simplicity is what makes it so dependable. You are asked only to accept the Atonement for yourself.</p>]]></content:encoded>
+      <enclosure url="https://www.acimdailyminute.org/audio/daily-lessons/lesson-098.mp3" type="audio/mpeg" length="0"/>
+      <guid isPermaLink="false">acim-lesson-098</guid>
+      <pubDate>Fri, 10 Apr 2026 06:00:00 GMT</pubDate>
+      <itunes:duration>03:45</itunes:duration>
+      <itunes:episode>98</itunes:episode>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

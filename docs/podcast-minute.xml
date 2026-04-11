@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ACIM Daily Minute</title>
+    <link>https://www.acimdailyminute.org</link>
+    <language>en-us</language>
+    <copyright>Public domain text; audio CC BY-SA 4.0</copyright>
+    <itunes:author>ACIM Daily Minute</itunes:author>
+    <itunes:owner>
+      <itunes:name>ACIM Daily Minute</itunes:name>
+      <itunes:email>podcast@acimdailyminute.org</itunes:email>
+    </itunes:owner>
+    <description>A one-minute reading from A Course in Miracles, every day. Short, reflective passages from the Text, Workbook, and Manual for Teachers.</description>
+    <itunes:image href="https://www.acimdailyminute.org/assets/podcast-minute-artwork.png"/>
+    <itunes:category text="Religion &amp; Spirituality"/>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <atom:link href="https://www.acimdailyminute.org/podcast-minute.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Daily Minute — April 10, 2026</title>
+      <description>There is no order of difficulty in miracles. One is not "harder" or "bigger" than another. They are all the same. All expressions of love are maximal.</description>
+      <content:encoded><![CDATA[<p>"There is no order of difficulty in miracles. One is not 'harder' or 'bigger' than another. They are all the same. All expressions of love are maximal."</p><p><em>— Text, Chapter 1, Section I</em></p>]]></content:encoded>
+      <enclosure url="https://www.acimdailyminute.org/audio/daily-minute/2026-04-10.mp3" type="audio/mpeg" length="0"/>
+      <guid isPermaLink="false">acim-minute-2026-04-10</guid>
+      <pubDate>Fri, 10 Apr 2026 06:00:00 GMT</pubDate>
+      <itunes:duration>01:12</itunes:duration>
+      <itunes:episode>42</itunes:episode>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

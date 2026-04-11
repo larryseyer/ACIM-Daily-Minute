@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-04-10T06:00:00.000000+00:00",
+  "uptime_start": null,
+  "uptime_seconds": 0,
+  "streams": {
+    "daily_minute": {
+      "status": "sample_data",
+      "last_updated": "2026-04-10",
+      "segment_id": 42,
+      "episodes_published": 0
+    },
+    "daily_lessons": {
+      "status": "sample_data",
+      "last_updated": "2026-04-10",
+      "lesson_id": 98,
+      "episodes_published": 0
+    },
+    "text_series": {
+      "status": "coming_soon",
+      "estimated_start": "Late 2027"
+    }
+  },
+  "api_costs": {
+    "today": {
+      "elevenlabs": { "calls": 0, "cost_usd": 0.0, "details": { "characters": 0 } },
+      "claude": { "calls": 0, "cost_usd": 0.0, "details": { "input_tokens": 0, "output_tokens": 0 } }
+    },
+    "total_usd": 0.0,
+    "month_estimate_usd": 0.0,
+    "daily_budget": 1.0,
+    "budget_pct": 0.0
+  },
+  "status": {
+    "state": "idle",
+    "stream_health": "offline",
+    "next_cycle_minutes": null,
+    "degraded_services": []
+  },
+  "feeds": {
+    "feed_xml": "https://www.acimdailyminute.org/feed.xml",
+    "podcast_minute": "https://www.acimdailyminute.org/podcast-minute.xml",
+    "podcast_lessons": "https://www.acimdailyminute.org/podcast-lessons.xml",
+    "alexa": "https://www.acimdailyminute.org/alexa.json"
+  }
+}

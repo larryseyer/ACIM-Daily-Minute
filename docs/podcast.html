@@ -84,11 +84,12 @@
         <div class="card text-center">
             <h3>&#128225; RSS Feed</h3>
             <p class="text-muted" style="font-size:0.9rem;">Add to any podcast app via RSS.</p>
-            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+            <a href="podcast-minute.xml" class="btn btn--outline" style="margin-top:0.75rem;">Daily Minute RSS</a>
+            <a href="podcast-lessons.xml" class="btn btn--outline" style="margin-top:0.5rem;">Daily Lessons RSS</a>
         </div>
     </div>
 
-    <p class="text-muted text-center mt-3" style="font-size:0.85rem;">Podcast feeds are being set up. In the meantime, listen on <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a>.</p>
+    <p class="text-muted text-center mt-3" style="font-size:0.85rem;">Apple Podcasts and Spotify listings are being submitted. In the meantime, use the RSS feed links above or listen on <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a>.</p>
 </section>
 
 <!-- Podcast Feeds -->
@@ -149,14 +150,10 @@
 </footer>
 
 <script>
-/* Sample episodes — will be replaced by dynamic data in Phase 4 */
-var SAMPLE_EPISODES = [
-    { title: 'Daily Minute: "There is no order of difficulty in miracles..."', date: 'Apr 10, 2026', duration: '1:12', stream: 'minute' },
-    { title: 'Lesson 98: I will accept my part in God\'s plan for salvation.', date: 'Apr 10, 2026', duration: '3:45', stream: 'lesson' },
-    { title: 'Daily Minute: "Miracles are natural..."', date: 'Apr 9, 2026', duration: '1:08', stream: 'minute' },
-    { title: 'Lesson 97: I am spirit.', date: 'Apr 9, 2026', duration: '2:30', stream: 'lesson' },
-    { title: 'Daily Minute: "The miracle is a learning device..."', date: 'Apr 8, 2026', duration: '1:15', stream: 'minute' }
-];
+function formatDate(dateStr) {
+    var d = new Date(dateStr + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 
 function renderEpisodes(episodes) {
     var list = document.getElementById('episode-list');
@@ -177,7 +174,7 @@ function renderEpisodes(episodes) {
 
         var meta = document.createElement('div');
         meta.className = 'episode-item__meta';
-        meta.textContent = ep.date + ' \u00B7 ' + ep.duration;
+        meta.textContent = ep.date;
 
         info.appendChild(title);
         info.appendChild(meta);
@@ -188,7 +185,35 @@ function renderEpisodes(episodes) {
     });
 }
 
-renderEpisodes(SAMPLE_EPISODES);
+/* Build episode list from JSON data files */
+Promise.all([
+    fetch('daily-minute.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
+    fetch('daily-lesson.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+]).then(function(results) {
+    var episodes = [];
+    var minute = results[0];
+    var lesson = results[1];
+
+    if (minute) {
+        episodes.push({ title: 'Daily Minute: \u201C' + minute.text.substring(0, 60) + '...\u201D', date: formatDate(minute.date), sortDate: minute.date, stream: 'minute' });
+        if (minute.archive) {
+            minute.archive.forEach(function(entry) {
+                episodes.push({ title: 'Daily Minute: \u201C' + entry.text.substring(0, 60) + '...\u201D', date: formatDate(entry.date), sortDate: entry.date, stream: 'minute' });
+            });
+        }
+    }
+    if (lesson) {
+        episodes.push({ title: 'Lesson ' + lesson.lesson_id + ': ' + lesson.title, date: formatDate(lesson.date), sortDate: lesson.date, stream: 'lesson' });
+        if (lesson.archive) {
+            lesson.archive.forEach(function(entry) {
+                episodes.push({ title: 'Lesson ' + entry.lesson_id + ': ' + entry.title, date: formatDate(entry.date), sortDate: entry.date, stream: 'lesson' });
+            });
+        }
+    }
+
+    episodes.sort(function(a, b) { return b.sortDate.localeCompare(a.sortDate); });
+    renderEpisodes(episodes.slice(0, 10));
+});
 </script>
 
 </body>

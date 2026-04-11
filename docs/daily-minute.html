@@ -122,22 +122,7 @@
 <script src="audio-player.js"></script>
 
 <script>
-/* Sample data — will be replaced by fetch('daily-minute.json') in Phase 4 */
-var SAMPLE_DATA = {
-    today: {
-        date: '2026-04-10',
-        passage: 'There is no order of difficulty in miracles. One is not "harder" or "bigger" than another. They are all the same. All expressions of love are maximal.',
-        source: 'Text, Chapter 1, Section I',
-        audioUrl: 'audio/daily-minute/2026-04-10.mp3'
-    },
-    archive: [
-        { date: '2026-04-09', passage: 'Miracles are natural. When they do not occur something has gone wrong.', source: 'T-1.I.6:1-2', audioUrl: '' },
-        { date: '2026-04-08', passage: 'The miracle is a learning device that lessens the need for time.', source: 'T-1.I.15:1', audioUrl: '' },
-        { date: '2026-04-07', passage: 'Prayer is the medium of miracles. It is a means of communication of the created with the Creator.', source: 'T-1.I.11:1-2', audioUrl: '' },
-        { date: '2026-04-06', passage: 'Miracles are thoughts. Thoughts can represent the lower or bodily level of experience, or the higher or spiritual level of experience.', source: 'T-1.I.12:1-2', audioUrl: '' },
-        { date: '2026-04-05', passage: 'A miracle is a service. It is the maximal service you can render to another.', source: 'T-1.I.18:1-2', audioUrl: '' }
-    ]
-};
+/* Fetch today's reading from data file */
 
 function formatDate(dateStr) {
     var d = new Date(dateStr + 'T12:00:00');
@@ -182,21 +167,34 @@ function renderArchive(entries) {
     });
 }
 
-renderToday(SAMPLE_DATA.today);
-renderArchive(SAMPLE_DATA.archive);
-
-/* Phase 4: Replace above with:
 fetch('daily-minute.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        renderToday(data);
-        // fetch archive separately
+    .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
     })
-    .catch(function() {
+    .then(function(data) {
+        renderToday({
+            date: data.date,
+            passage: data.text,
+            source: data.source_reference,
+            audioUrl: data.audio_url
+        });
+        if (data.archive && data.archive.length) {
+            renderArchive(data.archive.map(function(entry) {
+                return {
+                    date: entry.date,
+                    passage: entry.text,
+                    source: entry.source_reference,
+                    audioUrl: entry.audio_url
+                };
+            }));
+        }
+    })
+    .catch(function(err) {
+        console.warn('Failed to load daily-minute.json:', err);
         document.getElementById('today-reading').style.display = 'none';
         document.getElementById('empty-state').style.display = '';
     });
-*/
 </script>
 
 </body>
