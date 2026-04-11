@@ -180,13 +180,21 @@
 </footer>
 
 <script>
-    // Fetch today's reading to replace the static teaser
+    // Fetch today's reading — show a short teaser, not the full passage
     fetch('daily-minute.json')
         .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
         .then(function(data) {
             if (data.text) {
                 var el = document.querySelector('.glass-card__passage');
-                if (el) el.textContent = '\u201C' + data.text.trim() + '\u201D';
+                if (el) {
+                    // Truncate to ~2 sentences for the hero teaser
+                    var text = data.text.trim();
+                    var sentences = text.match(/[^.!?]+[.!?]+/g);
+                    if (sentences && sentences.length > 2) {
+                        text = sentences.slice(0, 2).join('').trim() + ' \u2026';
+                    }
+                    el.textContent = '\u201C' + text + '\u201D';
+                }
             }
         })
         .catch(function() { /* keep static fallback */ });
