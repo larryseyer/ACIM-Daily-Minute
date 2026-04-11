@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-11T14:05:55.869058+00:00",
+  "timestamp": "2026-04-11T14:18:25.712236+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
@@ -20,7 +20,13 @@
       "estimated_start": "Late 2027"
     }
   },
-  "api_costs": {},
+  "api_costs": {
+    "today": {},
+    "total_usd": 0.0,
+    "month_estimate_usd": 0.0,
+    "daily_budget": 0.33,
+    "budget_pct": 0.0
+  },
   "status": {
     "state": "idle",
     "stream_health": "online",
