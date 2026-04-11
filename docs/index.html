@@ -8,6 +8,7 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Free daily readings from A Course in Miracles. Listen to one-minute audio passages, follow the 365 Workbook Lessons, and explore the complete Text — delivered daily via YouTube, podcast, and web.">
     <meta name="author" content="ACIM Daily Minute">
+    <meta name="keywords" content="A Course in Miracles, ACIM, daily readings, miracles, spiritual practice, workbook lessons, ACIM audio, ACIM podcast">
     <link rel="canonical" href="https://acimdailyminute.org/">
 
     <!-- OpenGraph Tags -->
@@ -165,14 +166,30 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
             <li><a href="monitor.html">Dashboard</a></li>
+            <li><a href="feed.xml">RSS</a></li>
+            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
+            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
         </ul>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
         <p class="site-footer__copy">
-            &copy; 2025 ACIM Daily Minute &middot;
+            &copy; 2025–2026 ACIM Daily Minute &middot;
             <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
         </p>
     </div>
 </footer>
 
+<script>
+    // Fetch today's reading to replace the static teaser
+    fetch('daily-minute.json')
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) {
+            if (data.text) {
+                var el = document.querySelector('.glass-card__passage');
+                if (el) el.textContent = '\u201C' + data.text.trim() + '\u201D';
+            }
+        })
+        .catch(function() { /* keep static fallback */ });
+</script>
 </body>
 </html>

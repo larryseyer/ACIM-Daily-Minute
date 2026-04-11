@@ -8,6 +8,7 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Support ACIM Daily Minute — a free, ad-free, viewer-supported service delivering daily readings from A Course in Miracles. Your contributions keep the Course accessible to all.">
     <meta name="author" content="ACIM Daily Minute">
+    <meta name="keywords" content="support ACIM Daily Minute, donate, viewer supported, no ads, free spiritual content, A Course in Miracles">
     <link rel="canonical" href="https://acimdailyminute.org/support.html">
 
     <!-- OpenGraph Tags -->
@@ -106,8 +107,50 @@
         <p>"No ads. No tracking. No paywalls. Just the Course, delivered freely."</p>
     </div>
 
+    <!-- Operational Costs (Live) -->
+    <h2 style="margin-top: 2.5rem;">Operational Costs</h2>
+    <p>Full transparency: every API call is tracked and reported in real-time. This is what it costs to run ACIM Daily Minute.</p>
+
+    <div class="costs-section">
+        <div class="costs-header">
+            <h3>Operational Costs (Live)</h3>
+            <span class="live-badge" id="live-status">Loading...</span>
+        </div>
+        <div class="costs-grid">
+            <div class="cost-item">
+                <div class="cost-label">Today's Cost</div>
+                <div class="cost-value highlight" id="today-cost">--</div>
+                <div class="cost-detail" id="today-calls">-- API calls</div>
+                <div class="budget-bar">
+                    <div class="budget-fill green" id="budget-fill" style="width: 0%"></div>
+                </div>
+                <div class="cost-detail" id="budget-text">-- of daily budget</div>
+            </div>
+            <div class="cost-item">
+                <div class="cost-label">Monthly Estimate</div>
+                <div class="cost-value" id="month-estimate">--</div>
+                <div class="cost-detail">projected at current rate</div>
+            </div>
+        </div>
+        <div class="costs-breakdown">
+            <div class="breakdown-row">
+                <span class="breakdown-service">Claude AI (content processing)</span>
+                <span class="breakdown-cost" id="claude-cost">--</span>
+            </div>
+            <div class="breakdown-row">
+                <span class="breakdown-service">ElevenLabs (voice synthesis)</span>
+                <span class="breakdown-cost" id="elevenlabs-cost">--</span>
+            </div>
+        </div>
+        <div class="status-row">
+            <span class="status-dot" id="status-dot"></span>
+            <span class="status-text" id="status-text">Checking status...</span>
+        </div>
+        <a class="dashboard-link" href="monitor.html">View Full Operations Dashboard &rarr;</a>
+    </div>
+
     <!-- How to Support -->
-    <h2>How to Support</h2>
+    <h2 style="margin-top: 2.5rem;">How to Support</h2>
 
     <div class="card-grid">
         <div class="card text-center">
@@ -144,14 +187,107 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
             <li><a href="monitor.html">Dashboard</a></li>
+            <li><a href="feed.xml">RSS</a></li>
+            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
+            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
         </ul>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
         <p class="site-footer__copy">
-            &copy; 2025 ACIM Daily Minute &middot;
+            &copy; 2025–2026 ACIM Daily Minute &middot;
             <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
         </p>
     </div>
 </footer>
 
+<script>
+    function formatCurrency(amount) {
+        if (typeof amount !== 'number') return '$0.00';
+        return '$' + amount.toFixed(2);
+    }
+
+    function formatUptime(seconds) {
+        if (!seconds) return '--';
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor((seconds % 3600) / 60);
+        if (hours > 0) return hours + 'h ' + minutes + 'm uptime';
+        return minutes + 'm uptime';
+    }
+
+    async function loadCosts() {
+        try {
+            var response = await fetch('./monitor.json?t=' + Date.now());
+            if (!response.ok) throw new Error('Not found');
+            var data = await response.json();
+
+            var dataTime = new Date(data.timestamp);
+            var now = new Date();
+            var isStale = (now - dataTime) > 15 * 60 * 1000;
+
+            var liveBadge = document.getElementById('live-status');
+            if (isStale) {
+                liveBadge.textContent = 'Stale';
+                liveBadge.style.background = 'rgba(234, 179, 8, 0.2)';
+                liveBadge.style.color = '#eab308';
+            } else {
+                liveBadge.textContent = 'Live';
+                liveBadge.style.background = 'rgba(34, 197, 94, 0.2)';
+                liveBadge.style.color = '#22c55e';
+            }
+
+            var costs = data.api_costs || {};
+            var services = costs.today || {};
+
+            document.getElementById('today-cost').textContent = formatCurrency(costs.total_usd);
+            document.getElementById('month-estimate').textContent = formatCurrency(costs.month_estimate_usd);
+
+            var budgetPct = costs.budget_pct || 0;
+            var dailyBudget = costs.daily_budget || 5;
+            var budgetFill = document.getElementById('budget-fill');
+            var budgetText = document.getElementById('budget-text');
+
+            budgetFill.style.width = Math.min(budgetPct, 100) + '%';
+            budgetFill.className = 'budget-fill ' + (budgetPct < 50 ? 'green' : budgetPct < 80 ? 'yellow' : 'red');
+            budgetText.textContent = budgetPct.toFixed(0) + '% of $' + dailyBudget + ' daily budget';
+
+            var totalCalls = 0;
+            for (var key in services) {
+                if (services.hasOwnProperty(key)) totalCalls += services[key].calls || 0;
+            }
+            document.getElementById('today-calls').textContent = totalCalls + ' API calls';
+
+            var claude = services.claude || {};
+            var elevenlabs = services.elevenlabs || {};
+
+            document.getElementById('claude-cost').textContent = formatCurrency(claude.cost_usd);
+            document.getElementById('elevenlabs-cost').textContent = formatCurrency(elevenlabs.cost_usd);
+
+            var statusDot = document.getElementById('status-dot');
+            var statusText = document.getElementById('status-text');
+            var streamHealth = (data.status && data.status.stream_health) || 'unknown';
+
+            if (streamHealth === 'online') {
+                statusDot.className = 'status-dot';
+                statusText.textContent = 'Pipeline online \u2022 ' + formatUptime(data.uptime_seconds);
+            } else if (streamHealth === 'offline') {
+                statusDot.className = 'status-dot offline';
+                statusText.textContent = 'Pipeline offline';
+            } else {
+                statusDot.className = 'status-dot';
+                statusDot.style.background = '#64748b';
+                statusText.textContent = 'Status unknown';
+            }
+
+        } catch (e) {
+            document.getElementById('live-status').textContent = 'Offline';
+            document.getElementById('live-status').style.background = 'rgba(239, 68, 68, 0.2)';
+            document.getElementById('live-status').style.color = '#ef4444';
+            document.getElementById('status-text').textContent = 'Could not load live data';
+        }
+    }
+
+    loadCosts();
+    setInterval(loadCosts, 30000);
+</script>
 </body>
 </html>
