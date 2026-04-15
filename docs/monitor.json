@@ -1,13 +1,23 @@
 {
-  "timestamp": "2026-04-15T07:49:19.025094+00:00",
+  "timestamp": "2026-04-15T21:29:02.415758+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
+    "daily_minute": {
+      "status": "completed",
+      "last_updated": "2026-04-15",
+      "segment_id": 13575,
+      "episodes_published": 27
+    },
     "daily_lessons": {
       "status": "completed",
       "last_updated": "2026-04-15",
       "lesson_id": 11,
-      "episodes_published": 11
+      "episodes_published": 12
+    },
+    "text_series": {
+      "status": "coming_soon",
+      "estimated_start": "Late 2027"
     }
   },
   "api_costs": {
