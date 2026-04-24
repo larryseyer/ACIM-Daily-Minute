@@ -114,7 +114,11 @@ def _wrap_text(text: str, font: ImageFont.FreeTypeFont, text_width: int) -> list
     avg_char_width = (bbox[2] - bbox[0]) / len(test_text)
     chars_per_line = int(text_width / avg_char_width)
 
-    lines = textwrap.wrap(text, width=chars_per_line)
+    # Normalize all whitespace (newlines, multiple spaces) to single spaces
+    # This removes PDF page break artifacts that cause mid-sentence gaps
+    normalized_text = ' '.join(text.split())
+
+    lines = textwrap.wrap(normalized_text, width=chars_per_line)
     return lines
 
 
@@ -193,24 +197,68 @@ def build_video(
         text_block_height = len(lines) * total_line_height
         # Text starts below screen, scrolls until it's above screen
         total_scroll = height + text_block_height
-        pixels_per_frame = total_scroll / total_frames if total_frames > 0 else 1
+
+        # Scroll timing adjustments:
+        # - TITLE_HOLD_SECONDS: Show background/title before text appears
+        # - SCROLL_SPEED_FACTOR: Slow down scroll so text stays visible longer (< 1.0 = slower)
+        TITLE_HOLD_SECONDS = 2.0  # Hold on title before text scrolls in
+        SCROLL_SPEED_FACTOR = 0.85  # 85% speed = text lingers longer at end
+
+        title_hold_frames = int(TITLE_HOLD_SECONDS * FPS)
+        scrolling_frames = total_frames - title_hold_frames
+
+        if scrolling_frames > 0:
+            pixels_per_frame = (total_scroll / scrolling_frames) * SCROLL_SPEED_FACTOR
+        else:
+            pixels_per_frame = total_scroll / total_frames if total_frames > 0 else 1
 
         log.info(
             f"Text: {len(lines)} lines, block height: {text_block_height}px, "
             f"scroll speed: {pixels_per_frame:.2f} px/frame"
         )
 
-        # Step 1: Render frames to a temporary raw video file
-        raw_path = str(output) + ".raw"
-        log.info("Rendering frames to temp file...")
+        # Start FFmpeg process with stdin pipe for real-time frame encoding
+        # This avoids writing hundreds of GB of raw frames to disk
+        ffmpeg_cmd = [
+            "ffmpeg", "-y",
+            "-f", "rawvideo",
+            "-vcodec", "rawvideo",
+            "-s", f"{width}x{height}",
+            "-pix_fmt", "rgb24",
+            "-r", str(FPS),
+            "-i", "pipe:0",  # Read raw video from stdin
+            "-itsoffset", str(TITLE_HOLD_SECONDS),  # Delay audio to match title hold
+            "-i", audio_path,
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            "-preset", "medium",
+            "-crf", "23",
+            "-c:a", "aac",
+            "-b:a", "128k",
+            "-movflags", "+faststart",
+            output_path,
+        ]
 
-        with open(raw_path, "wb") as raw_file:
+        log.info("Starting FFmpeg encoder (streaming frames)...")
+        ffmpeg_proc = subprocess.Popen(
+            ffmpeg_cmd,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        try:
             for frame_num in range(total_frames):
                 # Start with background
                 frame = background.copy().convert("RGBA")
 
                 # Calculate Y offset — text starts below screen and scrolls up
-                y_offset = height - (frame_num * pixels_per_frame)
+                # During title hold period, text stays off-screen
+                if frame_num < title_hold_frames:
+                    y_offset = height + 100  # Keep text below visible area
+                else:
+                    scroll_frame = frame_num - title_hold_frames
+                    y_offset = height - (scroll_frame * pixels_per_frame)
 
                 # Draw semi-transparent shaded box behind text that scrolls with it
                 box_top = int(y_offset - box_pad_y)
@@ -247,42 +295,28 @@ def build_video(
                             draw.text((x+ox, y+oy), line, font=font, fill=outline_color)
                         draw.text((x, y), line, font=font, fill="white")
 
-                raw_file.write(frame.tobytes())
+                # Pipe frame directly to FFmpeg
+                ffmpeg_proc.stdin.write(frame.tobytes())
 
                 # Progress logging every 10%
                 if total_frames > 0 and frame_num % max(1, total_frames // 10) == 0:
                     pct = (frame_num / total_frames) * 100
                     log.info(f"Rendering: {pct:.0f}% ({frame_num}/{total_frames} frames)")
 
-        log.info("Frames rendered. Encoding video with ffmpeg...")
+            # Let communicate() handle closing stdin
+            log.info("All frames sent. Waiting for FFmpeg to finish encoding...")
 
-        # Step 2: Use ffmpeg to encode the raw video file with audio
-        ffmpeg_cmd = [
-            "ffmpeg", "-y",
-            "-f", "rawvideo",
-            "-vcodec", "rawvideo",
-            "-s", f"{width}x{height}",
-            "-pix_fmt", "rgb24",
-            "-r", str(FPS),
-            "-i", raw_path,
-            "-i", audio_path,
-            "-c:v", "libx264",
-            "-pix_fmt", "yuv420p",
-            "-preset", "medium",
-            "-crf", "23",
-            "-c:a", "aac",
-            "-b:a", "128k",
-            "-movflags", "+faststart",
-            output_path,
-        ]
+            # Wait for FFmpeg to complete
+            _, stderr = ffmpeg_proc.communicate(timeout=600)
 
-        result = subprocess.run(ffmpeg_cmd, capture_output=True, text=True, timeout=600)
+            if ffmpeg_proc.returncode != 0:
+                log.error(f"ffmpeg failed: {stderr.decode()[-500:]}")
+                return False
 
-        # Clean up raw file
-        Path(raw_path).unlink(missing_ok=True)
-
-        if result.returncode != 0:
-            log.error(f"ffmpeg failed: {result.stderr[-500:]}")
+        except BrokenPipeError:
+            # FFmpeg died unexpectedly - get error message
+            _, stderr = ffmpeg_proc.communicate()
+            log.error(f"FFmpeg pipe broken: {stderr.decode()[-500:]}")
             return False
 
         file_size = output.stat().st_size / (1024 * 1024)
@@ -290,8 +324,5 @@ def build_video(
         return True
 
     except Exception as e:
-        # Clean up raw file on error
-        raw_path = str(output) + ".raw"
-        Path(raw_path).unlink(missing_ok=True)
         log.error(f"Video build failed: {e}")
         return False

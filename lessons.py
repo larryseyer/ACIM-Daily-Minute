@@ -96,24 +96,44 @@ def get_next_lesson() -> Optional[dict]:
     """
     Get the next lesson to post (sequential order).
 
-    Returns the next lesson after the highest successfully posted lesson,
-    or lesson 1 if none have been posted yet.
+    Returns the next lesson in sequence, handling Introductions:
+    - ID 0: Part 1 Introduction (posts first)
+    - ID 1-220: Part 1 Lessons
+    - ID 500: Part 2 Introduction (posts after lesson 220)
+    - ID 221-365: Part 2 Lessons
     """
     conn = get_db()
 
-    # Find highest successfully posted lesson
+    # Find the last successfully posted lesson
     row = conn.execute(
-        """SELECT MAX(lesson_id) as max_lesson
-           FROM lessons_log WHERE success = 1"""
+        """SELECT lesson_id FROM lessons_log
+           WHERE success = 1
+           ORDER BY upload_date DESC, lesson_id DESC
+           LIMIT 1"""
     ).fetchone()
 
-    last_lesson = row['max_lesson'] if row['max_lesson'] else 0
-    next_lesson_id = last_lesson + 1
+    last_lesson = row['lesson_id'] if row else None
 
-    # Wrap around if we've completed all 365
-    if next_lesson_id > 365:
-        log.info("All 365 lessons completed! Starting over from lesson 1.")
+    # Determine next lesson ID based on sequence
+    if last_lesson is None:
+        # Nothing posted yet - start with Part 1 Introduction (ID 0)
+        next_lesson_id = 0
+    elif last_lesson == 0:
+        # Part 1 Introduction done - start Lesson 1
         next_lesson_id = 1
+    elif last_lesson == 220:
+        # Part 1 complete - post Part 2 Introduction (ID 500)
+        next_lesson_id = 500
+    elif last_lesson == 500:
+        # Part 2 Introduction done - start Lesson 221
+        next_lesson_id = 221
+    elif last_lesson >= 365:
+        # All lessons complete! Start over from Part 1 Introduction
+        log.info("All lessons completed! Starting over from Part 1 Introduction.")
+        next_lesson_id = 0
+    else:
+        # Normal sequential progression
+        next_lesson_id = last_lesson + 1
 
     # Get the lesson
     lesson = conn.execute(
@@ -124,6 +144,15 @@ def get_next_lesson() -> Optional[dict]:
 
     if lesson:
         return dict(lesson)
+
+    # If introduction not found, skip to first lesson
+    if next_lesson_id == 0:
+        log.warning("Part 1 Introduction not found, starting with Lesson 1")
+        return get_lesson_by_id(1)
+    elif next_lesson_id == 500:
+        log.warning("Part 2 Introduction not found, starting with Lesson 221")
+        return get_lesson_by_id(221)
+
     return None
 
 
@@ -163,18 +192,41 @@ def log_lesson_upload(
 
 
 def build_description(lesson: dict) -> str:
-    """Build YouTube video description for a lesson."""
-    return (
-        f"ACIM Workbook Lesson {lesson['id']}\n\n"
-        f'"{lesson["title"]}"\n\n'
-        f"Today's lesson:\n\n"
-        f"{lesson['text']}\n\n"
-        f"---\n\n"
-        f"Read from the public domain edition of A Course in Miracles, "
-        f"as scribed by Helen Schucman.\n\n"
-        f"The Workbook contains 365 lessons — one for each day of the year.\n\n"
-        f"#ACIM #ACourseInMiracles #WorkbookLesson #Lesson{lesson['id']}"
-    )
+    """Build YouTube video description for a lesson or introduction."""
+    if lesson['id'] == 0:
+        return (
+            f"ACIM Workbook — Part 1 Introduction\n\n"
+            f"This introduction sets the foundation for the first 220 lessons "
+            f"of A Course in Miracles Workbook.\n\n"
+            f"---\n\n"
+            f"Read from the public domain edition of A Course in Miracles, "
+            f"as scribed by Helen Schucman.\n\n"
+            f"The Workbook contains 365 lessons — one for each day of the year.\n\n"
+            f"#ACIM #ACourseInMiracles #Workbook #Introduction"
+        )
+    elif lesson['id'] == 500:
+        return (
+            f"ACIM Workbook — Part 2 Introduction\n\n"
+            f"This introduction prepares you for the final lessons (221-365) "
+            f"of A Course in Miracles Workbook.\n\n"
+            f"---\n\n"
+            f"Read from the public domain edition of A Course in Miracles, "
+            f"as scribed by Helen Schucman.\n\n"
+            f"The Workbook contains 365 lessons — one for each day of the year.\n\n"
+            f"#ACIM #ACourseInMiracles #Workbook #Introduction"
+        )
+    else:
+        return (
+            f"ACIM Workbook Lesson {lesson['id']}\n\n"
+            f'"{lesson["title"]}"\n\n'
+            f"Today's lesson:\n\n"
+            f"{lesson['text']}\n\n"
+            f"---\n\n"
+            f"Read from the public domain edition of A Course in Miracles, "
+            f"as scribed by Helen Schucman.\n\n"
+            f"The Workbook contains 365 lessons — one for each day of the year.\n\n"
+            f"#ACIM #ACourseInMiracles #WorkbookLesson #Lesson{lesson['id']}"
+        )
 
 
 def show_status():
@@ -349,14 +401,27 @@ def run_lessons_pipeline(
         youtube_video_path = existing_videos[0]
         log.info(f"Reusing existing video: {youtube_video_path}")
     else:
-        # 1. Generate audio via ElevenLabs
-        if not generate_audio(lesson["text"], str(audio_path)):
+        # Build TTS text based on lesson type
+        if lesson['id'] == 0:
+            # Part 1 Introduction
+            tts_text = f"Part 1 Introduction.\n\n{lesson['text']}"
+        elif lesson['id'] == 500:
+            # Part 2 Introduction
+            tts_text = f"Part 2 Introduction.\n\n{lesson['text']}"
+        else:
+            # Regular lesson - text already contains the title in quotes
+            tts_text = f"Lesson {lesson['id']}.\n\n{lesson['text']}"
+
+        # 1. Generate audio via ElevenLabs (reuse if exists to save credits!)
+        if audio_path.exists():
+            log.info(f"Reusing existing audio: {audio_path} (saving ElevenLabs credits)")
+        elif not generate_audio(tts_text, str(audio_path)):
             log.error("TTS generation failed")
             return
 
         # 2. Build YouTube video (horizontal 1920x1080) with lessons background
         if not build_video(
-            lesson["text"],
+            tts_text,
             str(audio_path),
             str(youtube_video_path),
             format="horizontal",
@@ -371,14 +436,23 @@ def run_lessons_pipeline(
         if tiktok_video_path.exists():
             log.info(f"Reusing existing TikTok video: {tiktok_video_path}")
         else:
+            # Prepare tts_text if not already defined (video was reused)
+            if 'tts_text' not in locals():
+                if lesson['id'] == 0:
+                    tts_text = f"Part 1 Introduction.\n\n{lesson['text']}"
+                elif lesson['id'] == 500:
+                    tts_text = f"Part 2 Introduction.\n\n{lesson['text']}"
+                else:
+                    tts_text = f"Lesson {lesson['id']}.\n\n{lesson['text']}"
+
             # Need audio for TikTok video
             if not audio_path.exists():
-                if not generate_audio(lesson["text"], str(audio_path)):
+                if not generate_audio(tts_text, str(audio_path)):
                     log.error("TTS generation failed for TikTok")
                     do_tiktok = False
 
             if do_tiktok and not build_video(
-                lesson["text"],
+                tts_text,
                 str(audio_path),
                 str(tiktok_video_path),
                 format="vertical",
@@ -388,14 +462,26 @@ def run_lessons_pipeline(
                 do_tiktok = False
 
     # Build titles and descriptions
-    title = f'ACIM Lesson {lesson["id"]}: "{lesson["title"]}"'
-    # Truncate title if too long for YouTube (100 char limit)
-    if len(title) > 100:
-        title = f'ACIM Lesson {lesson["id"]}: "{lesson["title"][:60]}..."'
+    if lesson['id'] == 0:
+        title = "ACIM Workbook — Part 1 Introduction"
+    elif lesson['id'] == 500:
+        title = "ACIM Workbook — Part 2 Introduction"
+    else:
+        title = f'ACIM Lesson {lesson["id"]}: "{lesson["title"]}"'
+        # Truncate title if too long for YouTube (100 char limit)
+        if len(title) > 100:
+            title = f'ACIM Lesson {lesson["id"]}: "{lesson["title"][:60]}..."'
 
     description = build_description(lesson)
-    tags = YOUTUBE_TAGS + [f"Lesson {lesson['id']}"]
-    tiktok_title = f'ACIM Lesson {lesson["id"]} {TIKTOK_HASHTAGS}'
+    if lesson['id'] == 0:
+        tags = YOUTUBE_TAGS + ["Introduction", "Part 1"]
+        tiktok_title = f'ACIM Part 1 Introduction {TIKTOK_HASHTAGS}'
+    elif lesson['id'] == 500:
+        tags = YOUTUBE_TAGS + ["Introduction", "Part 2"]
+        tiktok_title = f'ACIM Part 2 Introduction {TIKTOK_HASHTAGS}'
+    else:
+        tags = YOUTUBE_TAGS + [f"Lesson {lesson['id']}"]
+        tiktok_title = f'ACIM Lesson {lesson["id"]} {TIKTOK_HASHTAGS}'
 
     if dry_run:
         log.info(f"DRY RUN — would upload: {title}")
@@ -453,8 +539,57 @@ def run_lessons_pipeline(
             tiktok_success,
         )
 
-    # 7. Cleanup temp files
-    audio_path.unlink(missing_ok=True)
+    # 7. Push data to website (GitHub Pages)
+    if youtube_success or tiktok_success:
+        try:
+            from github_push import push_all_daily_lesson
+            push_all_daily_lesson(
+                lesson_id=lesson["id"],
+                title=lesson["title"],
+                text=lesson["text"],
+                word_count=lesson["word_count"],
+                date_str=date_str,
+                youtube_id=youtube_id or "",
+            )
+        except Exception as e:
+            log.warning(f"Website push failed (non-fatal): {e}")
+
+    # 7b. Push monitor status with cost data
+    try:
+        from github_push import push_monitor
+        from cost_tracker import get_api_costs_today, get_daily_budget, get_month_estimate
+
+        today_costs = get_api_costs_today()
+        daily_budget = get_daily_budget()
+        month_est = get_month_estimate()
+        total_usd = today_costs.get("total_cost_usd", 0)
+        budget_pct = (total_usd / daily_budget * 100) if daily_budget > 0 else 0
+
+        push_monitor(
+            state="idle",
+            stream_health="online",
+            api_costs={
+                "today": today_costs.get("services", {}),
+                "total_usd": round(total_usd, 4),
+                "month_estimate_usd": round(month_est, 2),
+                "daily_budget": round(daily_budget, 2),
+                "budget_pct": round(budget_pct, 1),
+            },
+            streams={
+                "daily_lessons": {
+                    "status": "completed",
+                    "last_updated": date_str,
+                    "lesson_id": lesson["id"],
+                    "episodes_published": lesson["id"],
+                },
+            },
+        )
+    except Exception as e:
+        log.warning(f"Monitor push failed (non-fatal): {e}")
+
+    # 8. Cleanup temp files
+    # KEEP audio files to save ElevenLabs credits for future runs!
+    # audio_path.unlink(missing_ok=True)  # Preserved for credit savings
     if tiktok_video_path:
         tiktok_video_path.unlink(missing_ok=True)
     # Keep YouTube video for potential re-upload? Or delete:

@@ -311,8 +311,11 @@ def run_daily_pipeline(
     )
 
     # 2. Generate audio via ElevenLabs (shared between both platforms)
+    # Reuse existing audio if available (saves credits on retry)
     audio_path = AUDIO_DIR / f"acim_{segment['id']}.mp3"
-    if not generate_audio(segment["text"], str(audio_path)):
+    if audio_path.exists():
+        log.info(f"Reusing existing audio: {audio_path} (saving ElevenLabs credits)")
+    elif not generate_audio(segment["text"], str(audio_path)):
         log.error("TTS generation failed")
         return
 
@@ -360,8 +363,8 @@ def run_daily_pipeline(
             log.info(f"TikTok Video: {tiktok_video_path}")
         log.info(f"Audio: {audio_path}")
         log.info(f"Segment text: {segment['text'][:100]}...")
-        # Cleanup temp files
-        audio_path.unlink(missing_ok=True)
+        # Cleanup temp files (KEEP audio to save ElevenLabs credits)
+        # audio_path.unlink(missing_ok=True)  # Preserved for credit savings
         if tiktok_video_path:
             tiktok_video_path.unlink(missing_ok=True)
         log.info("=== DRY RUN complete ===")
@@ -407,8 +410,60 @@ def run_daily_pipeline(
         tiktok_success,
     )
 
-    # 9. Cleanup temp files
-    audio_path.unlink(missing_ok=True)
+    # 9. Push data to website (GitHub Pages)
+    if youtube_success or tiktok_success:
+        try:
+            from github_push import push_all_daily_minute
+            push_all_daily_minute(
+                segment_id=segment["id"],
+                text=segment["text"],
+                source_pdf=segment["source_pdf"],
+                source_reference=segment.get("source_reference", segment["source_pdf"]),
+                word_count=segment["word_count"],
+                date_str=date_str,
+                youtube_id=youtube_id or "",
+            )
+        except Exception as e:
+            log.warning(f"Website push failed (non-fatal): {e}")
+
+    # 9b. Push monitor status with cost data
+    try:
+        from github_push import push_monitor
+        from cost_tracker import get_api_costs_today, get_daily_budget, get_month_estimate, archive_yesterday_cost
+
+        archive_yesterday_cost()
+
+        today_costs = get_api_costs_today()
+        daily_budget = get_daily_budget()
+        month_est = get_month_estimate()
+        total_usd = today_costs.get("total_cost_usd", 0)
+        budget_pct = (total_usd / daily_budget * 100) if daily_budget > 0 else 0
+
+        push_monitor(
+            state="idle",
+            stream_health="online",
+            api_costs={
+                "today": today_costs.get("services", {}),
+                "total_usd": round(total_usd, 4),
+                "month_estimate_usd": round(month_est, 2),
+                "daily_budget": round(daily_budget, 2),
+                "budget_pct": round(budget_pct, 1),
+            },
+            streams={
+                "daily_minute": {
+                    "status": "completed",
+                    "last_updated": date_str,
+                    "segment_id": segment["id"],
+                    "episodes_published": segment["id"],
+                },
+            },
+        )
+    except Exception as e:
+        log.warning(f"Monitor push failed (non-fatal): {e}")
+
+    # 10. Cleanup temp files
+    # KEEP audio files to save ElevenLabs credits for potential retries!
+    # audio_path.unlink(missing_ok=True)  # Preserved for credit savings
     if tiktok_video_path:
         tiktok_video_path.unlink(missing_ok=True)
 

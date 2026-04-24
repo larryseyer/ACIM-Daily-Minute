@@ -13,3 +13,7 @@ logs/
 pdfs/
 video/
 pdfs ORIG DNU/
+venv/
+.serena/
+log.txt
+docs/

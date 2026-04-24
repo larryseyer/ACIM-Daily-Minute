@@ -82,6 +82,28 @@ This guide walks you through setting up TikTok integration for automated daily p
 | **Category** | Education / Lifestyle |
 | **Platform** | Web |
 
+
+
+It wants Terms of Service URL *
+
+Privacy Policy URL *
+
+Web/Desktop URL *
+
+and
+
+Required information for app submissionPlease review the [App Review Guidelines](https://developers.tiktok.com/doc/app-review-guidelines) for more details.
+
+Explain how each product and scope works within your app or website. If submitting a revision, include the changes in this version. *
+
+and also
+
+Upload at least one demo video that shows the complete end-to-end flow of the integration with TikTok. *
+
+Accepted formats: mp4, movMaximum 5 files, up to 50MB eachFor example, it should demonstrate how you use TikTok for Developers' capabilities, such as Login Kit, Share Kit, Display API, Content Posting API, and the relevant scopes.If your app has not been approved before, you are required to use a sandbox environment on the Developer Portal to demonstrate the integration.The demo video should showcase the website or app where the features will actually be integrated.All selected products and scopes must be clearly demonstrated in the video. If you don't need certain products or scopes, make sure to remove them before review. Otherwise, it will delay the review result.The video should clearly show the user interface and user interactions.If you intend to integrate with a web app, make sure the domain of the website shown in the demo video matches the website URL you provide.If you intend to integrate with a mobile app, the demo video should start by showing the app being opened.
+
+
+
 ### Step 3.3: Configure API Scopes
 
 1. Go to **Products** or **Add products**

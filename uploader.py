@@ -10,6 +10,7 @@ Adapted from JTF News upload pattern.
 import logging
 import os
 from pathlib import Path
+from typing import Optional
 
 from dotenv import load_dotenv
 from google.auth.transport.requests import Request
@@ -157,7 +158,8 @@ def generate_thumbnail(day_number: int, output_path: str) -> bool:
 
 
 def upload_video(video_path: str, title: str, description: str,
-                 tags: list, thumbnail_path: str) -> str | None:
+                 tags: list, thumbnail_path: str,
+                 playlist_id: Optional[str] = None) -> Optional[str]:
     """
     Upload video to YouTube, set thumbnail, add to playlist.
 
@@ -167,6 +169,7 @@ def upload_video(video_path: str, title: str, description: str,
         description: Video description
         tags: List of tags
         thumbnail_path: Path to thumbnail PNG
+        playlist_id: Optional playlist ID to add video to (overrides .env default)
 
     Returns:
         YouTube video ID on success, None on failure
@@ -241,8 +244,9 @@ def upload_video(video_path: str, title: str, description: str,
             except Exception as e:
                 log.warning(f"Failed to set thumbnail: {e}")
 
-        # Add to playlist
-        _, playlist_id = get_youtube_credentials()
+        # Add to playlist (use provided playlist_id or fall back to .env default)
+        if playlist_id is None:
+            _, playlist_id = get_youtube_credentials()
         if playlist_id and playlist_id != "your_playlist_id_here":
             try:
                 youtube.playlistItems().insert(
