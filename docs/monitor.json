@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-24T21:56:11.913494+00:00",
+  "timestamp": "2026-04-25T07:23:25.895103+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
     "daily_minute": {
       "status": "completed",
-      "last_updated": "2026-04-24",
-      "segment_id": 13626,
-      "episodes_published": 36
+      "last_updated": "2026-04-25",
+      "segment_id": 13212,
+      "episodes_published": 13212
     },
     "daily_lessons": {
       "status": "completed",
@@ -23,17 +23,17 @@
   "api_costs": {
     "today": {
       "elevenlabs": {
-        "calls": 2,
-        "cost_usd": 0.06075,
+        "calls": 1,
+        "cost_usd": 0.03966,
         "details": {
-          "characters": 2025
+          "characters": 1322
         }
       }
     },
-    "total_usd": 0.0607,
-    "month_estimate_usd": 2.52,
+    "total_usd": 0.0397,
+    "month_estimate_usd": 2.38,
     "daily_budget": 0.33,
-    "budget_pct": 18.2
+    "budget_pct": 11.9
   },
   "status": {
     "state": "idle",
