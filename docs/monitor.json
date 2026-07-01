@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-01T07:25:32.840070+00:00",
+  "timestamp": "2026-07-01T08:40:13.974694+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
@@ -11,9 +11,9 @@
     },
     "daily_lessons": {
       "status": "completed",
-      "last_updated": "2026-06-30",
-      "lesson_id": 64,
-      "episodes_published": 64
+      "last_updated": "2026-07-01",
+      "lesson_id": 65,
+      "episodes_published": 65
     },
     "text_series": {
       "status": "coming_soon",
@@ -23,17 +23,17 @@
   "api_costs": {
     "today": {
       "elevenlabs": {
-        "calls": 1,
-        "cost_usd": 0.0417,
+        "calls": 2,
+        "cost_usd": 0.1476,
         "details": {
-          "characters": 1390
+          "characters": 4920
         }
       }
     },
-    "total_usd": 0.0417,
+    "total_usd": 0.1476,
     "month_estimate_usd": 2.95,
     "daily_budget": 0.32,
-    "budget_pct": 12.9
+    "budget_pct": 45.8
   },
   "status": {
     "state": "idle",
