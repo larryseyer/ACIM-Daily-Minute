@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-07-15T07:21:28.220025+00:00",
+  "timestamp": "2026-07-15T07:21:29.471848+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
     "daily_minute": {
       "status": "completed",
-      "last_updated": "2026-07-15",
-      "segment_id": 12427,
-      "episodes_published": 12427
+      "last_updated": "2026-07-12",
+      "segment_id": 13658,
+      "episodes_published": 13658
     },
     "daily_lessons": {
       "status": "completed",
-      "last_updated": "2026-07-14",
+      "last_updated": "2026-07-15",
       "lesson_id": 72,
       "episodes_published": 72
     },
