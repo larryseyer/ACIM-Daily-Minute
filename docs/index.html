@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
     <title>ACIM Daily Minute — Daily Readings from A Course in Miracles</title>
 
     <!-- SEO Meta Tags -->
@@ -49,6 +51,7 @@
             <li><a href="daily-minute.html">Daily Minute</a></li>
             <li><a href="lessons.html">Lessons</a></li>
             <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="apps.html">Apps</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
@@ -64,13 +67,14 @@
     <a href="daily-minute.html">Daily Minute</a>
     <a href="lessons.html">Lessons</a>
     <a href="podcast.html">Podcast</a>
+    <a href="apps.html">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
     <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
 </div>
 
 <!-- Hero -->
-<section id="main-content" class="hero hero--full">
+<section id="main-content" class="hero hero--full hero--photo">
     <div class="hero__brand">
         <span class="hero__brand-acim">ACIM</span>
         <span class="hero__brand-daily">Daily Minute</span>
@@ -100,28 +104,46 @@
 
     <div class="stream-cards">
         <!-- Daily Minute -->
-        <a href="daily-minute.html" class="stream-card stream-card--gold" style="text-decoration:none; color:inherit; display:block;">
-            <div class="stream-card__icon">&#9832;</div>
-            <div class="stream-card__title">Daily Minute</div>
-            <p class="stream-card__desc">A one-minute reading from the ACIM Text — a new passage every day, seven days a week. Listen, reflect, begin your day with the Course.</p>
-            <span class="stream-card__badge stream-card__badge--active">Active</span>
+        <a href="daily-minute.html" class="stream-card stream-card--gold stream-card--photo" style="text-decoration:none; color:inherit; display:block;">
+            <img class="stream-card__thumb" src="assets/art-minute.jpg" alt="Daily Minute artwork — a golden microphone beside the open Course, sunrise over a lake" loading="lazy" width="1600" height="1000">
+            <div class="stream-card__inner">
+                <div class="stream-card__title">Daily Minute</div>
+                <p class="stream-card__desc">A one-minute reading from the ACIM Text — a new passage every day, seven days a week. Listen, reflect, begin your day with the Course.</p>
+                <span class="stream-card__badge stream-card__badge--active">Active</span>
+            </div>
         </a>
 
         <!-- Daily Lessons -->
-        <a href="lessons.html" class="stream-card stream-card--blue" style="text-decoration:none; color:inherit; display:block;">
-            <div class="stream-card__icon">&#9998;</div>
-            <div class="stream-card__title">Daily Lessons</div>
-            <p class="stream-card__desc">The 365 Workbook Lessons, one per weekday. Each lesson delivered as audio and text, following the Course's own sequence.</p>
-            <span class="stream-card__badge stream-card__badge--active">Active</span>
+        <a href="lessons.html" class="stream-card stream-card--blue stream-card--photo" style="text-decoration:none; color:inherit; display:block;">
+            <img class="stream-card__thumb" src="assets/art-lesson.jpg" alt="Daily Lesson artwork — the open Course and a cup of coffee at sunrise" loading="lazy" width="1600" height="1000">
+            <div class="stream-card__inner">
+                <div class="stream-card__title">Daily Lessons</div>
+                <p class="stream-card__desc">The 365 Workbook Lessons, one per weekday. Each lesson delivered as audio and text, following the Course's own sequence.</p>
+                <span class="stream-card__badge stream-card__badge--active">Active</span>
+            </div>
         </a>
 
         <!-- Text Series -->
-        <a href="text-series.html" class="stream-card stream-card--muted" style="text-decoration:none; color:inherit; display:block;">
-            <div class="stream-card__icon">&#9733;</div>
-            <div class="stream-card__title">Text Series</div>
-            <p class="stream-card__desc">The complete ACIM Text read aloud, chapter by chapter, section by section. A deep dive through the entire Course.</p>
-            <span class="stream-card__badge stream-card__badge--soon">Coming Soon</span>
+        <a href="text-series.html" class="stream-card stream-card--muted stream-card--photo" style="text-decoration:none; color:inherit; display:block;">
+            <img class="stream-card__thumb" src="assets/art-text.jpg" alt="Text Series artwork — a flower-lined path leading toward the sea at dawn" loading="lazy" width="1600" height="1000">
+            <div class="stream-card__inner">
+                <div class="stream-card__title">Text Series</div>
+                <p class="stream-card__desc">The complete ACIM Text read aloud, chapter by chapter, section by section. A deep dive through the entire Course.</p>
+                <span class="stream-card__badge stream-card__badge--soon">Coming Soon</span>
+            </div>
         </a>
+    </div>
+
+    <!-- Apple apps -->
+    <div class="app-band">
+        <img class="app-band__icon" src="assets/app-icon.png" alt="ACIM Daily Minute app icon" loading="lazy" width="76" height="76">
+        <div class="app-band__body">
+            <div class="app-band__kicker">Now on every Apple device</div>
+            <div class="app-band__title">Read and listen on iPhone, iPad, Mac, Apple TV &amp; Apple Watch</div>
+            <p class="app-band__desc">A native app with today's minute, the full Workbook, the searchable archive, widgets, and audio — free, with no ads and no tracking.</p>
+            <span class="app-band__tag">Launches September 13, 2026</span>
+        </div>
+        <a href="apps.html" class="btn btn--primary">Explore the Apps</a>
     </div>
 </section>
 
@@ -141,9 +163,9 @@
             <a href="podcast.html" class="btn btn--outline" style="margin-top: 0.75rem;">Subscribe</a>
         </div>
         <div class="card text-center">
-            <h3>&#128241; iOS App</h3>
-            <p class="text-muted" style="font-size: 0.9rem;">A dedicated app for reading and listening on the go.</p>
-            <span class="btn btn--outline btn--disabled" style="margin-top: 0.75rem;">Coming Soon</span>
+            <h3>&#128241; Apple Apps</h3>
+            <p class="text-muted" style="font-size: 0.9rem;">iPhone, iPad, Mac, Apple TV &amp; Apple Watch. Launches Sept 13, 2026.</p>
+            <a href="apps.html" class="btn btn--outline" style="margin-top: 0.75rem;">Learn More</a>
         </div>
     </div>
 </section>
@@ -165,6 +187,8 @@
             <li><a href="podcast.html">Podcast</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
+            <li><a href="apps.html">Apps</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
             <li><a href="monitor.html">Dashboard</a></li>
             <li><a href="feed.xml">RSS</a></li>
             <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
