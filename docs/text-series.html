@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
+    <meta name="theme-color" content="#14131c">
     <title>Text Series — ACIM Daily Minute</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="The complete A Course in Miracles Text, read aloud chapter by chapter. Coming after the 365 Workbook Lessons are complete.">
     <meta name="author" content="ACIM Daily Minute">
-    <meta name="keywords" content="A Course in Miracles text, ACIM text audio, complete ACIM reading, ACIM chapters, Course in Miracles audiobook">
-    <link rel="canonical" href="https://acimdailyminute.org/text-series.html">
+    <link rel="canonical" href="https://www.acimdailyminute.org/text-series.html">
 
-    <!-- OpenGraph Tags -->
     <meta property="og:title" content="Text Series — ACIM Daily Minute">
     <meta property="og:description" content="The complete ACIM Text, read aloud chapter by chapter. Coming soon.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://acimdailyminute.org/text-series.html">
+    <meta property="og:url" content="https://www.acimdailyminute.org/text-series.html">
     <meta property="og:site_name" content="ACIM Daily Minute">
-    <meta property="og:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta property="og:image" content="https://www.acimdailyminute.org/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Text Series — ACIM Daily Minute">
     <meta name="twitter:description" content="The complete ACIM Text, read aloud chapter by chapter. Coming soon.">
-    <meta name="twitter:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta name="twitter:image" content="https://www.acimdailyminute.org/assets/og-image.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="ACIM Daily Minute">
 
-    <!-- Theme (must load before paint) -->
     <script src="theme.js"></script>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<nav class="site-nav" aria-label="Main">
     <div class="site-nav__inner">
-        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <a href="index.html" class="site-nav__logo">ACIM Daily Minute</a>
         <ul class="site-nav__links">
             <li><a href="index.html">Home</a></li>
             <li><a href="daily-minute.html">Daily Minute</a></li>
@@ -55,14 +47,14 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
-        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+        <button type="button" class="theme-toggle" aria-label="Switch to light theme"></button>
+        <button type="button" class="site-nav__toggle" aria-label="Open menu" aria-controls="nav-overlay" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-<div id="nav-overlay" class="site-nav__overlay">
-    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+<div id="nav-overlay" class="site-nav__overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="site-nav__close" aria-label="Close menu">&times;</button>
     <a href="index.html">Home</a>
     <a href="daily-minute.html">Daily Minute</a>
     <a href="lessons.html">Lessons</a>
@@ -70,81 +62,87 @@
     <a href="apps.html">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
-    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+    <button type="button" class="theme-toggle--overlay">Light theme</button>
 </div>
 
-<!-- Page Hero -->
-<section id="main-content" class="page-hero page-hero--muted">
+<main id="main-content">
+<section class="page-hero page-hero--muted">
     <span class="label">Text Series</span>
-    <h1>The Complete Text</h1>
+    <h1>The complete Text</h1>
     <p class="page-hero__subtitle">Coming after the 365 Workbook Lessons are complete</p>
 </section>
 
-<!-- Coming Soon -->
 <section class="container section text-center">
     <div class="coming-soon">
-        <div class="coming-soon__icon">&#9733;</div>
-        <h2>Coming Soon</h2>
-
-        <p>The complete <em>A Course in Miracles</em> Text, read aloud chapter by chapter, section by section. This deep-dive series will take you through the entire theoretical foundation of the Course — 31 chapters exploring the nature of reality, forgiveness, and the journey to inner peace.</p>
-
-        <p class="text-muted">This series will begin after all 365 Daily Lessons have been completed, estimated in late 2027. When active, new sections will be posted daily, seven days a week.</p>
+        <h2>Coming soon</h2>
+        <p>The complete <em>A Course in Miracles</em> Text, read aloud chapter by chapter, section by section. This series will take you through the entire theoretical foundation of the Course — 31 chapters exploring the nature of reality, forgiveness, and the journey to inner peace.</p>
+        <p class="text-muted">It will begin after all 365 Daily Lessons have been completed, estimated in late 2027. When active, new sections will be posted daily, seven days a week.</p>
 
         <div class="philosophy mt-3">
-            <p>"The course does not aim at teaching the meaning of love, for that is beyond what can be taught. It does aim, however, at removing the blocks to the awareness of love's presence."</p>
+            <p>The course does not aim at teaching the meaning of love, for that is beyond what can be taught. It does aim, however, at removing the blocks to the awareness of love's presence.</p>
         </div>
 
-        <h3 style="margin-top:2rem;">What to Expect</h3>
-        <div class="card-grid" style="text-align:left;">
+        <h3 class="mt-4">What to expect</h3>
+        <div class="card-grid">
             <div class="card">
-                <h3>&#128218; Full Text</h3>
-                <p style="margin-bottom:0;">All 31 chapters of the ACIM Text, read in sequence from the Introduction through Chapter 31.</p>
+                <h3>Full Text</h3>
+                <p>All 31 chapters of the ACIM Text, read in sequence from the Introduction through Chapter 31.</p>
             </div>
             <div class="card">
-                <h3>&#127911; Audio + Text</h3>
-                <p style="margin-bottom:0;">Each section delivered as professional audio with the full text displayed on screen and on this page.</p>
+                <h3>Audio + text</h3>
+                <p>Each section delivered as professional audio with the full text displayed on screen and on this page.</p>
             </div>
             <div class="card">
-                <h3>&#128197; Daily</h3>
-                <p style="margin-bottom:0;">Seven days a week, one section at a time. A sustained, contemplative journey through the Course.</p>
+                <h3>Daily</h3>
+                <p>Seven days a week, one section at a time. A sustained, contemplative journey through the Course.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA -->
 <section class="container cta-section">
-    <h2 class="cta-section__title">Start With Today's Reading</h2>
+    <h2 class="cta-section__title">Start with today's reading</h2>
     <p class="cta-section__desc">While the Text Series is being prepared, listen to today's Daily Minute or follow the Workbook Lessons.</p>
-    <a href="daily-minute.html" class="btn btn--primary">Today's Reading</a>
-    <a href="lessons.html" class="btn btn--outline" style="margin-left:0.5rem;">Today's Lesson</a>
+    <div class="btn-row">
+        <a href="daily-minute.html" class="btn btn--primary">Today's reading</a>
+        <a href="lessons.html" class="btn btn--outline">Today's lesson</a>
+    </div>
 </section>
+</main>
 
-<!-- Footer -->
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <ul class="site-footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="daily-minute.html">Daily Minute</a></li>
-            <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="podcast.html">Podcast</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="apps.html">Apps</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="monitor.html">Dashboard</a></li>
-            <li><a href="feed.xml">RSS</a></li>
-            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
-            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
-            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
-        </ul>
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__heading">Listen</p>
+                <ul class="site-footer__col">
+                    <li><a href="daily-minute.html">Daily Minute</a></li>
+                    <li><a href="lessons.html">Daily Lessons</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Explore</p>
+                <ul class="site-footer__col">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="apps.html">Apps</a></li>
+                    <li><a href="text-series.html">Text Series</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Support</p>
+                <ul class="site-footer__col">
+                    <li><a href="support.html">Contribute</a></li>
+                    <li><a href="mailto:podcast@acimdailyminute.org">Contact</a></li>
+                    <li><a href="https://github.com/larryseyer/ACIM-Daily-Minute" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
-        <p class="site-footer__copy">
-            &copy; 2025–2026 ACIM Daily Minute &middot;
-            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
-        </p>
+        <p class="site-footer__copy">&copy; 2025–2026 ACIM Daily Minute</p>
     </div>
 </footer>
-
 </body>
 </html>

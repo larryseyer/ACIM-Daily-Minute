@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
+    <meta name="theme-color" content="#14131c">
     <title>Apps — ACIM Daily Minute</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="ACIM Daily Minute for iPhone, iPad, Mac, Apple TV, and Apple Watch. Today's passage, the full Workbook, a searchable archive, widgets, and audio — free, with no ads and no tracking. Launches September 13, 2026.">
     <meta name="author" content="ACIM Daily Minute">
-    <meta name="keywords" content="A Course in Miracles app, ACIM app, iPhone, iPad, Mac, Apple TV, Apple Watch, daily lesson app, ACIM widget">
-    <link rel="canonical" href="https://acimdailyminute.org/apps.html">
+    <link rel="canonical" href="https://www.acimdailyminute.org/apps.html">
 
-    <!-- OpenGraph Tags -->
     <meta property="og:title" content="Apps — ACIM Daily Minute">
     <meta property="og:description" content="ACIM Daily Minute for iPhone, iPad, Mac, Apple TV, and Apple Watch. Free, with no ads and no tracking. Launches September 13, 2026.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://acimdailyminute.org/apps.html">
+    <meta property="og:url" content="https://www.acimdailyminute.org/apps.html">
     <meta property="og:site_name" content="ACIM Daily Minute">
-    <meta property="og:image" content="https://acimdailyminute.org/assets/apps-hero.jpg">
-    <meta property="og:image:width" content="1920">
-    <meta property="og:image:height" content="452">
+    <meta property="og:image" content="https://www.acimdailyminute.org/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Apps — ACIM Daily Minute">
     <meta name="twitter:description" content="ACIM Daily Minute for iPhone, iPad, Mac, Apple TV, and Apple Watch. Launches September 13, 2026.">
-    <meta name="twitter:image" content="https://acimdailyminute.org/assets/apps-hero.jpg">
+    <meta name="twitter:image" content="https://www.acimdailyminute.org/assets/og-image.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="ACIM Daily Minute">
 
-    <!-- Theme (must load before paint) -->
     <script src="theme.js"></script>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<nav class="site-nav" aria-label="Main">
     <div class="site-nav__inner">
-        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <a href="index.html" class="site-nav__logo">ACIM Daily Minute</a>
         <ul class="site-nav__links">
             <li><a href="index.html">Home</a></li>
             <li><a href="daily-minute.html">Daily Minute</a></li>
@@ -55,38 +47,33 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
-        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+        <button type="button" class="theme-toggle" aria-label="Switch to light theme"></button>
+        <button type="button" class="site-nav__toggle" aria-label="Open menu" aria-controls="nav-overlay" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-<div id="nav-overlay" class="site-nav__overlay">
-    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+<div id="nav-overlay" class="site-nav__overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="site-nav__close" aria-label="Close menu">&times;</button>
     <a href="index.html">Home</a>
     <a href="daily-minute.html">Daily Minute</a>
     <a href="lessons.html">Lessons</a>
     <a href="podcast.html">Podcast</a>
-    <a href="apps.html">Apps</a>
+    <a href="apps.html" aria-current="page">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
-    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+    <button type="button" class="theme-toggle--overlay">Light theme</button>
 </div>
 
-<!-- Hero -->
-<header id="main-content" class="apps-hero">
+<main id="main-content">
+<header class="apps-hero">
     <span class="label">The App</span>
     <h1>A Course in Miracles, on every screen you own</h1>
-    <p class="apps-hero__lede">The Daily Minute reader, built natively for Apple platforms — the same passages and lessons you follow here, waiting for you when you open the app.</p>
-    <span class="store-pill">Coming to the App Store &mdash; September 13, 2026</span>
-    <div class="store-buttons">
-        <span class="btn btn--outline btn--disabled">Download on the App Store</span>
-        <span class="btn btn--outline btn--disabled">Mac App Store</span>
-    </div>
-    <p class="store-note">Live download links replace these on launch day.</p>
+    <p class="apps-hero__lede">The Daily Minute reader, built natively for Apple platforms — the same passages and lessons you follow here, waiting when you open the app.</p>
+    <span class="store-pill">Coming to the App Store — September 13, 2026</span>
+    <p class="store-note">Download links will appear here on launch day.</p>
 </header>
 
-<!-- Overview -->
 <section class="container section">
     <p>Open the app and today's minute is waiting — a short passage from <em>A Course in Miracles</em> paired with that day's Workbook Lesson, refreshed automatically. Every passage is drawn from the Sparkly Edition and presented exactly as written, without commentary. One minute, one lesson, every day.</p>
 
@@ -120,51 +107,59 @@
         <li><strong>Reminders</strong> — a Daily Minute and a Daily Lesson reminder at your own times, plus practice reminders that follow the lesson you're on, with a custom chime.</li>
         <li><strong>Widgets</strong> — small, medium, and large Home Screen and Mac widgets.</li>
         <li><strong>Live Activity</strong> — Dynamic Island and Lock Screen presence while today's minute is active.</li>
-        <li><strong>Siri</strong> — &ldquo;What's today's reading?&rdquo;</li>
+        <li><strong>Siri</strong> — “What's today's reading?”</li>
     </ul>
 
     <h2>Private by design</h2>
     <div class="card">
         <p><strong>No data collected.</strong> No analytics, no crash reporters, no ad networks, no user accounts, and no tracking of any kind. Zero third-party SDKs — only Apple's built-in frameworks. Network requests go only to acimdailyminute.org to fetch the daily content.</p>
-        <p style="margin-bottom: 0;">Optional iCloud sync keeps your highlights, notes, and bookmarks in your own private iCloud database — off unless you turn it on, and unreadable to us. <a href="privacy.html">Read the full privacy policy</a>.</p>
+        <p>Optional iCloud sync keeps your highlights, notes, and bookmarks in your own private iCloud database — off unless you turn it on, and unreadable to us. <a href="privacy.html">Read the full privacy policy</a>.</p>
     </div>
 
     <h2>Other platforms</h2>
-    <p class="text-muted" style="font-size: 0.9rem;">Windows and Linux versions are planned to follow. Android is under evaluation.</p>
-
-    <p class="text-muted" style="font-size: 0.85rem;">Every passage is the Sparkly Edition of <em>A Course in Miracles</em>, based on the 1972 manuscript edited by William Thetford with Helen Schucman and distributed copyright-free. The app is an independent companion and does not represent or claim affiliation with any organization.</p>
+    <p class="text-muted">Windows and Linux versions are planned to follow. Android is under evaluation.</p>
+    <p class="text-muted">Every passage is the Sparkly Edition of <em>A Course in Miracles</em>, based on the 1972 manuscript edited by William Thetford with Helen Schucman and distributed copyright-free. The app is an independent companion and does not represent or claim affiliation with any organization.</p>
 
     <div class="cta-section">
         <p class="text-muted">Questions before launch?</p>
-        <a href="support.html" class="btn btn--primary" style="margin-top: 0.75rem;">Contact &amp; Support</a>
+        <a href="support.html" class="btn btn--primary mt-2">Contact &amp; support</a>
     </div>
 </section>
+</main>
 
-<!-- Footer -->
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <ul class="site-footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="daily-minute.html">Daily Minute</a></li>
-            <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="podcast.html">Podcast</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="apps.html">Apps</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="monitor.html">Dashboard</a></li>
-            <li><a href="feed.xml">RSS</a></li>
-            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
-            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
-            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
-        </ul>
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__heading">Listen</p>
+                <ul class="site-footer__col">
+                    <li><a href="daily-minute.html">Daily Minute</a></li>
+                    <li><a href="lessons.html">Daily Lessons</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Explore</p>
+                <ul class="site-footer__col">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="apps.html">Apps</a></li>
+                    <li><a href="text-series.html">Text Series</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Support</p>
+                <ul class="site-footer__col">
+                    <li><a href="support.html">Contribute</a></li>
+                    <li><a href="mailto:podcast@acimdailyminute.org">Contact</a></li>
+                    <li><a href="https://github.com/larryseyer/ACIM-Daily-Minute" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
-        <p class="site-footer__copy">
-            &copy; 2025–2026 ACIM Daily Minute &middot;
-            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
-        </p>
+        <p class="site-footer__copy">&copy; 2025–2026 ACIM Daily Minute</p>
     </div>
 </footer>
-
 </body>
 </html>

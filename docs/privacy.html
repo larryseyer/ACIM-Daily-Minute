@@ -3,48 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
+    <meta name="theme-color" content="#14131c">
     <title>Privacy Policy — ACIM Daily Minute</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="The privacy policy for the ACIM Daily Minute website and apps. No data collected, no analytics, no ads, no accounts. Optional iCloud sync stays in your own private iCloud.">
     <meta name="author" content="ACIM Daily Minute">
-    <link rel="canonical" href="https://acimdailyminute.org/privacy.html">
+    <link rel="canonical" href="https://www.acimdailyminute.org/privacy.html">
 
-    <!-- OpenGraph Tags -->
     <meta property="og:title" content="Privacy Policy — ACIM Daily Minute">
     <meta property="og:description" content="No data collected, no analytics, no ads, no accounts. Optional iCloud sync stays in your own private iCloud.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://acimdailyminute.org/privacy.html">
+    <meta property="og:url" content="https://www.acimdailyminute.org/privacy.html">
     <meta property="og:site_name" content="ACIM Daily Minute">
-    <meta property="og:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta property="og:image" content="https://www.acimdailyminute.org/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Privacy Policy — ACIM Daily Minute">
     <meta name="twitter:description" content="No data collected, no analytics, no ads, no accounts.">
-    <meta name="twitter:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta name="twitter:image" content="https://www.acimdailyminute.org/assets/og-image.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="ACIM Daily Minute">
 
-    <!-- Theme (must load before paint) -->
     <script src="theme.js"></script>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<nav class="site-nav" aria-label="Main">
     <div class="site-nav__inner">
-        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <a href="index.html" class="site-nav__logo">ACIM Daily Minute</a>
         <ul class="site-nav__links">
             <li><a href="index.html">Home</a></li>
             <li><a href="daily-minute.html">Daily Minute</a></li>
@@ -54,14 +47,14 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
-        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+        <button type="button" class="theme-toggle" aria-label="Switch to light theme"></button>
+        <button type="button" class="site-nav__toggle" aria-label="Open menu" aria-controls="nav-overlay" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-<div id="nav-overlay" class="site-nav__overlay">
-    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+<div id="nav-overlay" class="site-nav__overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="site-nav__close" aria-label="Close menu">&times;</button>
     <a href="index.html">Home</a>
     <a href="daily-minute.html">Daily Minute</a>
     <a href="lessons.html">Lessons</a>
@@ -69,11 +62,10 @@
     <a href="apps.html">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
-    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+    <button type="button" class="theme-toggle--overlay">Light theme</button>
 </div>
 
-<div id="main-content" class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
-
+<main id="main-content" class="container page">
     <h1>Privacy Policy</h1>
     <p class="legal__meta">Applies to the ACIM Daily Minute website and the ACIM Daily Minute apps for iPhone, iPad, Mac, Apple TV, and Apple Watch.</p>
 
@@ -82,74 +74,70 @@
     </div>
 
     <h2>The apps</h2>
-
     <p>The apps contain zero third-party SDKs — only Apple's built-in frameworks. There are no analytics, no advertising, no crash reporting, no user accounts, and no device fingerprinting.</p>
-
     <p>The apps make network requests only to <strong>acimdailyminute.org</strong>, to fetch the daily passage, the Workbook lessons, and the podcast feeds. Cached passages never leave your device.</p>
 
     <h3>Highlights, notes, and bookmarks</h3>
-
     <p>Your highlights, notes, and bookmarks stay on your device by default. If you turn on iCloud sync in Settings, they travel between your own Apple devices through your personal iCloud private database. That database is tied to your Apple Account and is not readable by the developer. iCloud sync is off unless you turn it on.</p>
 
     <h3>Reminders and notifications</h3>
-
     <p>All reminders — the Daily Minute reminder, the Daily Lesson reminder, and the practice reminders that follow the Workbook lesson you are on — are scheduled entirely on your device. Nothing about your schedule is sent anywhere.</p>
 
     <h2>The website</h2>
-
-    <p>The website serves static pages. It sets no cookies and runs no analytics or tracking scripts of its own.</p>
-
+    <p>The website serves static pages. It sets no cookies and runs no analytics or tracking scripts of its own. Fonts are hosted on this site, not loaded from a third-party font service.</p>
     <p>The site is hosted on GitHub Pages. As with any web host, GitHub may record standard server access logs (such as IP address, browser type, and requested page) in the course of delivering the site. ACIM Daily Minute does not receive, store, or analyze that information.</p>
-
-    <p>Some pages link to or embed third-party services — YouTube for video, and podcast directories for audio subscriptions. When you follow one of those links or play an embedded video, that service's own privacy policy applies to what it collects.</p>
+    <p>Some pages link to third-party services — YouTube for video, and podcast directories for audio subscriptions. When you follow one of those links, that service's own privacy policy applies to what it collects.</p>
 
     <h2>Children</h2>
-
     <p>ACIM Daily Minute is rated 4+ and is suitable for all ages. Because no data is collected from anyone, no data is collected from children.</p>
 
     <h2>App Store privacy label</h2>
-
     <div class="card">
-        <p style="margin-bottom: 0;"><strong>Data Not Collected.</strong> ACIM Daily Minute does not collect any data from users. Optional iCloud sync stores your highlights, notes, and bookmarks in your own iCloud private database; the developer cannot read it, so it is not data collected by the app.</p>
+        <p><strong>Data Not Collected.</strong> ACIM Daily Minute does not collect any data from users. Optional iCloud sync stores your highlights, notes, and bookmarks in your own iCloud private database; the developer cannot read it, so it is not data collected by the app.</p>
     </div>
 
     <h2>Changes</h2>
-
     <p>If this policy changes, the updated version will be posted on this page with a new effective date.</p>
 
     <h2>Contact</h2>
-
-    <p>Questions about privacy can be sent through the <a href="support.html">Support</a> page.</p>
+    <p>Questions about privacy can be sent to <a href="mailto:podcast@acimdailyminute.org">podcast@acimdailyminute.org</a> or through the <a href="support.html">Support</a> page.</p>
 
     <p class="legal__updated">Effective September 13, 2026.</p>
+</main>
 
-</div>
-
-<!-- Footer -->
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <ul class="site-footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="daily-minute.html">Daily Minute</a></li>
-            <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="podcast.html">Podcast</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="apps.html">Apps</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="monitor.html">Dashboard</a></li>
-            <li><a href="feed.xml">RSS</a></li>
-            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
-            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
-            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
-        </ul>
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__heading">Listen</p>
+                <ul class="site-footer__col">
+                    <li><a href="daily-minute.html">Daily Minute</a></li>
+                    <li><a href="lessons.html">Daily Lessons</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Explore</p>
+                <ul class="site-footer__col">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="apps.html">Apps</a></li>
+                    <li><a href="text-series.html">Text Series</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Support</p>
+                <ul class="site-footer__col">
+                    <li><a href="support.html">Contribute</a></li>
+                    <li><a href="mailto:podcast@acimdailyminute.org">Contact</a></li>
+                    <li><a href="https://github.com/larryseyer/ACIM-Daily-Minute" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
-        <p class="site-footer__copy">
-            &copy; 2025–2026 ACIM Daily Minute &middot;
-            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
-        </p>
+        <p class="site-footer__copy">&copy; 2025–2026 ACIM Daily Minute</p>
     </div>
 </footer>
-
 </body>
 </html>

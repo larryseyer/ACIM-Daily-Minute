@@ -3,49 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
+    <meta name="theme-color" content="#14131c">
     <title>Podcast — ACIM Daily Minute</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Subscribe to the ACIM Daily Minute podcast. Daily readings from A Course in Miracles delivered to your favorite podcast app.">
     <meta name="author" content="ACIM Daily Minute">
-    <meta name="keywords" content="ACIM podcast, A Course in Miracles podcast, daily miracles podcast, ACIM audio, spiritual podcast, RSS feed">
-    <link rel="canonical" href="https://acimdailyminute.org/podcast.html">
+    <link rel="canonical" href="https://www.acimdailyminute.org/podcast.html">
+    <link rel="alternate" type="application/rss+xml" title="ACIM Daily Minute podcast" href="https://www.acimdailyminute.org/podcast-minute.xml">
+    <link rel="alternate" type="application/rss+xml" title="ACIM Daily Lessons podcast" href="https://www.acimdailyminute.org/podcast-lessons.xml">
 
-    <!-- OpenGraph Tags -->
     <meta property="og:title" content="Podcast — ACIM Daily Minute">
     <meta property="og:description" content="Subscribe to the ACIM Daily Minute podcast. Daily readings from A Course in Miracles.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://acimdailyminute.org/podcast.html">
+    <meta property="og:url" content="https://www.acimdailyminute.org/podcast.html">
     <meta property="og:site_name" content="ACIM Daily Minute">
-    <meta property="og:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta property="og:image" content="https://www.acimdailyminute.org/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Podcast — ACIM Daily Minute">
     <meta name="twitter:description" content="Daily ACIM readings delivered to your podcast app.">
-    <meta name="twitter:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta name="twitter:image" content="https://www.acimdailyminute.org/assets/og-image.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="ACIM Daily Minute">
 
-    <!-- Theme (must load before paint) -->
     <script src="theme.js"></script>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<nav class="site-nav" aria-label="Main">
     <div class="site-nav__inner">
-        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <a href="index.html" class="site-nav__logo">ACIM Daily Minute</a>
         <ul class="site-nav__links">
             <li><a href="index.html">Home</a></li>
             <li><a href="daily-minute.html">Daily Minute</a></li>
@@ -55,132 +49,155 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
-        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+        <button type="button" class="theme-toggle" aria-label="Switch to light theme"></button>
+        <button type="button" class="site-nav__toggle" aria-label="Open menu" aria-controls="nav-overlay" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-<div id="nav-overlay" class="site-nav__overlay">
-    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+<div id="nav-overlay" class="site-nav__overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="site-nav__close" aria-label="Close menu">&times;</button>
     <a href="index.html">Home</a>
     <a href="daily-minute.html">Daily Minute</a>
     <a href="lessons.html">Lessons</a>
-    <a href="podcast.html">Podcast</a>
+    <a href="podcast.html" aria-current="page">Podcast</a>
     <a href="apps.html">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
-    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+    <button type="button" class="theme-toggle--overlay">Light theme</button>
 </div>
 
-<!-- Page Hero -->
-<section id="main-content" class="page-hero page-hero--gold">
+<main id="main-content">
+<section class="page-hero page-hero--gold">
     <span class="label">Podcast</span>
-    <h1>ACIM Daily Minute Podcast</h1>
-    <p class="page-hero__subtitle">Daily readings delivered to your podcast app</p>
+    <h1>Listen every day</h1>
+    <p class="page-hero__subtitle">Daily readings delivered to any podcast app</p>
 </section>
 
-<!-- Subscribe Section -->
 <section class="container section">
     <h2 class="section__title">Subscribe</h2>
 
     <div class="card-grid">
-        <div class="card text-center">
-            <h3>&#127822; Apple Podcasts</h3>
-            <p class="text-muted" style="font-size:0.9rem;">Listen on iPhone, iPad, or Mac.</p>
-            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+        <div class="card">
+            <div class="listen-name">Apple Podcasts</div>
+            <p class="text-muted">The show is being submitted to Apple. Until it appears, add the RSS feed in Podcasts.</p>
+            <span class="stream-card__badge stream-card__badge--soon">Listing in review</span>
         </div>
-        <div class="card text-center">
-            <h3>&#127911; Spotify</h3>
-            <p class="text-muted" style="font-size:0.9rem;">Stream or download on any device.</p>
-            <span class="btn btn--outline btn--disabled" style="margin-top:0.75rem;">Coming Soon</span>
+        <div class="card">
+            <div class="listen-name">Spotify</div>
+            <p class="text-muted">The Spotify listing is in progress. Use RSS in the meantime, or listen on YouTube.</p>
+            <span class="stream-card__badge stream-card__badge--soon">Listing in review</span>
         </div>
-        <div class="card text-center">
-            <h3>&#128225; RSS Feed</h3>
-            <p class="text-muted" style="font-size:0.9rem;">Add to any podcast app via RSS.</p>
-            <a href="podcast-minute.xml" class="btn btn--outline" style="margin-top:0.75rem;">Daily Minute RSS</a>
-            <a href="podcast-lessons.xml" class="btn btn--outline" style="margin-top:0.5rem;">Daily Lessons RSS</a>
+        <div class="card">
+            <div class="listen-name">RSS</div>
+            <p class="text-muted">Add either feed to Overcast, Pocket Casts, AntennaPod, or any other app.</p>
+            <div class="card-actions">
+                <a href="podcast-minute.xml" class="btn btn--primary">Daily Minute RSS</a>
+                <a href="podcast-lessons.xml" class="btn btn--outline">Daily Lessons RSS</a>
+            </div>
         </div>
     </div>
-
-    <p class="text-muted text-center mt-3" style="font-size:0.85rem;">Apple Podcasts and Spotify listings are being submitted. In the meantime, use the RSS feed links above or listen on <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a>.</p>
 </section>
 
-<!-- Podcast Feeds -->
-<section class="container section" style="padding-top:0;">
-    <h2 class="section__title">Three Podcast Feeds</h2>
-    <p class="text-center text-muted mb-3">Each content stream has its own dedicated podcast feed, so you can subscribe to exactly what you want.</p>
+<section class="container section section--tight">
+    <h2 class="section__title">The feeds</h2>
+    <p class="text-center text-muted mb-3">Each stream has its own feed, so you can subscribe to exactly what you want.</p>
 
     <div class="card-grid">
-        <div class="card">
-            <h3 style="color:var(--color-gold);">&#9832; Daily Minute</h3>
-            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">A one-minute ACIM reading, seven days a week. Short, reflective, perfect for a daily pause.</p>
-            <span class="stream-card__badge stream-card__badge--active mt-2" style="display:inline-block;">Active</span>
+        <div class="card podcast-feed">
+            <img class="podcast-feed__art" src="assets/podcast-minute-artwork.png" alt="Daily Minute podcast artwork" width="1024" height="1024">
+            <div>
+                <h3>Daily Minute</h3>
+                <p class="text-muted">A one-minute ACIM reading, seven days a week.</p>
+                <span class="stream-card__badge stream-card__badge--active">Active</span>
+            </div>
+        </div>
+        <div class="card podcast-feed">
+            <img class="podcast-feed__art" src="assets/podcast-lessons-artwork.png" alt="Daily Lessons podcast artwork" width="1080" height="1080">
+            <div>
+                <h3>Daily Lessons</h3>
+                <p class="text-muted">The 365 Workbook Lessons, one per weekday.</p>
+                <span class="stream-card__badge stream-card__badge--active">Active</span>
+            </div>
         </div>
         <div class="card">
-            <h3 style="color:var(--color-blue);">&#9998; Daily Lessons</h3>
-            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">The 365 Workbook Lessons, one per weekday. Follow the Course's own practice sequence.</p>
-            <span class="stream-card__badge stream-card__badge--active mt-2" style="display:inline-block;">Active</span>
-        </div>
-        <div class="card">
-            <h3 style="color:var(--color-text-muted);">&#9733; Text Series</h3>
-            <p class="text-muted" style="font-size:0.9rem; margin-bottom:0;">The complete ACIM Text, chapter by chapter. Coming after all 365 Lessons are complete.</p>
-            <span class="stream-card__badge stream-card__badge--soon mt-2" style="display:inline-block;">Coming Soon</span>
+            <h3>Text Series</h3>
+            <p class="text-muted">The complete ACIM Text, chapter by chapter. Coming after all 365 Lessons are complete.</p>
+            <span class="stream-card__badge stream-card__badge--soon">Coming soon</span>
         </div>
     </div>
 </section>
 
-<!-- Recent Episodes -->
-<section class="container section" style="padding-top:0;">
-    <h2 class="section__title">Recent Episodes</h2>
+<section class="container section section--tight">
+    <h2 class="section__title">Recent episodes</h2>
     <div class="episode-list" id="episode-list"></div>
 </section>
 
-<!-- CTA -->
 <section class="container cta-section">
     <h2 class="cta-section__title">Also on YouTube</h2>
-    <p class="cta-section__desc">Every reading is also available as a video with on-screen text on our YouTube channel.</p>
-    <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--primary">Daily Minute Playlist</a>
-    <a href="https://www.youtube.com/watch?v=bo_QRE4X7SM&list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline" style="margin-left:0.5rem;">Lessons Playlist</a>
+    <p class="cta-section__desc">Every reading is also available as a video with on-screen text.</p>
+    <div class="btn-row">
+        <a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" class="btn btn--primary" rel="noopener noreferrer">Daily Minute playlist</a>
+        <a href="https://www.youtube.com/watch?v=bo_QRE4X7SM&amp;list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline" rel="noopener noreferrer">Lessons playlist</a>
+    </div>
 </section>
+</main>
 
-<!-- Footer -->
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <ul class="site-footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="daily-minute.html">Daily Minute</a></li>
-            <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="podcast.html">Podcast</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="apps.html">Apps</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="monitor.html">Dashboard</a></li>
-            <li><a href="feed.xml">RSS</a></li>
-            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
-            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
-            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
-        </ul>
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__heading">Listen</p>
+                <ul class="site-footer__col">
+                    <li><a href="daily-minute.html">Daily Minute</a></li>
+                    <li><a href="lessons.html">Daily Lessons</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Explore</p>
+                <ul class="site-footer__col">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="apps.html">Apps</a></li>
+                    <li><a href="text-series.html">Text Series</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Support</p>
+                <ul class="site-footer__col">
+                    <li><a href="support.html">Contribute</a></li>
+                    <li><a href="mailto:podcast@acimdailyminute.org">Contact</a></li>
+                    <li><a href="https://github.com/larryseyer/ACIM-Daily-Minute" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
-        <p class="site-footer__copy">
-            &copy; 2025–2026 ACIM Daily Minute &middot;
-            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
-        </p>
+        <p class="site-footer__copy">&copy; 2025–2026 ACIM Daily Minute</p>
     </div>
 </footer>
 
 <script>
-function formatDate(dateStr) {
-    var d = new Date(dateStr + 'T12:00:00');
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+function teaser(text) {
+    var cleaned = normalizeAcimText(text);
+    if (cleaned.length <= 72) return cleaned;
+    return cleaned.slice(0, 72).replace(/\s+\S*$/, '') + '…';
 }
 
 function renderEpisodes(episodes) {
     var list = document.getElementById('episode-list');
+    if (!episodes.length) {
+        var empty = document.createElement('p');
+        empty.className = 'archive-empty';
+        empty.textContent = 'Episodes will appear here as they are published.';
+        list.appendChild(empty);
+        return;
+    }
     episodes.forEach(function (ep) {
-        var item = document.createElement('div');
+        var item = document.createElement('a');
         item.className = 'episode-item';
+        item.href = ep.href;
 
         var badge = document.createElement('span');
         badge.className = 'episode-item__badge' + (ep.stream === 'lesson' ? ' episode-item__badge--blue' : '');
@@ -199,14 +216,12 @@ function renderEpisodes(episodes) {
 
         info.appendChild(title);
         info.appendChild(meta);
-
         item.appendChild(badge);
         item.appendChild(info);
         list.appendChild(item);
     });
 }
 
-/* Build episode list from JSON data files */
 Promise.all([
     fetch('daily-minute.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }),
     fetch('daily-lesson.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
@@ -216,18 +231,44 @@ Promise.all([
     var lesson = results[1];
 
     if (minute) {
-        episodes.push({ title: 'Daily Minute: \u201C' + minute.text.substring(0, 60) + '...\u201D', date: formatDate(minute.date), sortDate: minute.date, stream: 'minute' });
+        episodes.push({
+            title: teaser(minute.text),
+            date: formatAcimDate(minute.date, 'short'),
+            sortDate: minute.date,
+            stream: 'minute',
+            href: 'daily-minute.html'
+        });
         if (minute.archive) {
             minute.archive.forEach(function(entry) {
-                episodes.push({ title: 'Daily Minute: \u201C' + entry.text.substring(0, 60) + '...\u201D', date: formatDate(entry.date), sortDate: entry.date, stream: 'minute' });
+                if (entry.date === minute.date) return;
+                episodes.push({
+                    title: teaser(entry.text),
+                    date: formatAcimDate(entry.date, 'short'),
+                    sortDate: entry.date,
+                    stream: 'minute',
+                    href: 'daily-minute.html'
+                });
             });
         }
     }
     if (lesson) {
-        episodes.push({ title: 'Lesson ' + lesson.lesson_id + ': ' + lesson.title, date: formatDate(lesson.date), sortDate: lesson.date, stream: 'lesson' });
+        episodes.push({
+            title: 'Lesson ' + lesson.lesson_id + ': ' + stripLessonPrefix(lesson.title, lesson.lesson_id),
+            date: formatAcimDate(lesson.date, 'short'),
+            sortDate: lesson.date,
+            stream: 'lesson',
+            href: 'lessons.html'
+        });
         if (lesson.archive) {
             lesson.archive.forEach(function(entry) {
-                episodes.push({ title: 'Lesson ' + entry.lesson_id + ': ' + entry.title, date: formatDate(entry.date), sortDate: entry.date, stream: 'lesson' });
+                if (entry.lesson_id === lesson.lesson_id) return;
+                episodes.push({
+                    title: 'Lesson ' + entry.lesson_id + ': ' + stripLessonPrefix(entry.title, entry.lesson_id),
+                    date: formatAcimDate(entry.date, 'short'),
+                    sortDate: entry.date,
+                    stream: 'lesson',
+                    href: 'lessons.html'
+                });
             });
         }
     }
@@ -236,6 +277,5 @@ Promise.all([
     renderEpisodes(episodes.slice(0, 10));
 });
 </script>
-
 </body>
 </html>

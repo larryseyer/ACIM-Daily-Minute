@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14131c">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf6ef">
+    <meta name="theme-color" content="#14131c">
     <title>Daily Lessons — ACIM Daily Minute</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Follow the 365 Workbook Lessons from A Course in Miracles. One lesson per weekday, delivered as audio and text.">
     <meta name="author" content="ACIM Daily Minute">
-    <meta name="keywords" content="A Course in Miracles workbook, ACIM lessons, 365 workbook lessons, ACIM daily practice, workbook audio, spiritual exercises">
-    <link rel="canonical" href="https://acimdailyminute.org/lessons.html">
+    <link rel="canonical" href="https://www.acimdailyminute.org/lessons.html">
 
-    <!-- OpenGraph Tags -->
     <meta property="og:title" content="Daily Lessons — ACIM Daily Minute">
     <meta property="og:description" content="The 365 Workbook Lessons from A Course in Miracles. One lesson per weekday, delivered as audio and text.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://acimdailyminute.org/lessons.html">
+    <meta property="og:url" content="https://www.acimdailyminute.org/lessons.html">
     <meta property="og:site_name" content="ACIM Daily Minute">
-    <meta property="og:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta property="og:image" content="https://www.acimdailyminute.org/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Daily Lessons — ACIM Daily Minute">
     <meta name="twitter:description" content="The 365 Workbook Lessons from A Course in Miracles.">
-    <meta name="twitter:image" content="https://acimdailyminute.org/assets/og-image.png">
+    <meta name="twitter:image" content="https://www.acimdailyminute.org/assets/og-image.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="ACIM Daily Minute">
 
-    <!-- Theme (must load before paint) -->
     <script src="theme.js"></script>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<nav class="site-nav" aria-label="Main">
     <div class="site-nav__inner">
-        <a href="index.html" class="site-nav__logo">ACIM DAILY MINUTE</a>
+        <a href="index.html" class="site-nav__logo">ACIM Daily Minute</a>
         <ul class="site-nav__links">
             <li><a href="index.html">Home</a></li>
             <li><a href="daily-minute.html">Daily Minute</a></li>
@@ -55,34 +47,32 @@
             <li><a href="about.html">About</a></li>
             <li><a href="support.html">Support</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark theme"></button>
-        <button class="site-nav__toggle" aria-label="Open menu" onclick="document.getElementById('nav-overlay').classList.add('open')">
+        <button type="button" class="theme-toggle" aria-label="Switch to light theme"></button>
+        <button type="button" class="site-nav__toggle" aria-label="Open menu" aria-controls="nav-overlay" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-<div id="nav-overlay" class="site-nav__overlay">
-    <button class="site-nav__close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">&times;</button>
+<div id="nav-overlay" class="site-nav__overlay" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="site-nav__close" aria-label="Close menu">&times;</button>
     <a href="index.html">Home</a>
     <a href="daily-minute.html">Daily Minute</a>
-    <a href="lessons.html">Lessons</a>
+    <a href="lessons.html" aria-current="page">Lessons</a>
     <a href="podcast.html">Podcast</a>
     <a href="apps.html">Apps</a>
     <a href="about.html">About</a>
     <a href="support.html">Support</a>
-    <button onclick="toggleTheme(); this.parentElement.classList.remove('open');" class="theme-toggle--overlay">Toggle Theme</button>
+    <button type="button" class="theme-toggle--overlay">Light theme</button>
 </div>
 
-<!-- Page Hero -->
-<section id="main-content" class="page-hero page-hero--blue">
+<main id="main-content">
+<section class="page-hero page-hero--blue">
     <span class="label">Workbook Lessons</span>
-    <h1>Today's Lesson</h1>
+    <h1>Today's lesson</h1>
     <p class="page-hero__date" id="lesson-date"></p>
 </section>
 
-<!-- Today's Lesson -->
 <section class="container section">
-    <!-- Progress Bar -->
     <div class="lesson-progress" id="lesson-progress">
         <div class="lesson-progress__bar">
             <div class="lesson-progress__fill" id="progress-fill" style="width: 0%"></div>
@@ -92,133 +82,234 @@
         </p>
     </div>
 
-    <!-- Lesson Card -->
     <div class="reading-card reading-card--blue" id="today-lesson">
         <span class="reading-card__label" id="lesson-label"></span>
-        <h3 class="reading-card__title" id="lesson-title"></h3>
+        <h2 class="reading-card__title" id="lesson-title"></h2>
         <div class="reading-card__passage" id="lesson-body"></div>
         <div class="audio-player" id="lesson-player"></div>
     </div>
 
-    <!-- Empty state -->
-    <div class="empty-state" id="empty-state" style="display:none;">
+    <div class="empty-state" id="empty-state" hidden>
         <div class="philosophy">
-            <p>"Each day should be devoted to miracles."</p>
+            <p>Each day should be devoted to miracles.</p>
         </div>
         <p class="text-muted">Today's lesson will appear here soon.</p>
     </div>
 
-    <!-- Weekend note -->
-    <div id="weekend-note" style="display:none; text-align:center; margin-top:1.5rem;">
-        <p class="text-muted" style="font-style:italic;">Lessons are posted Monday through Friday. The next lesson will post on Monday.</p>
+    <div class="weekend-note" id="weekend-note" hidden>
+        <p class="text-muted">Lessons are posted Monday through Friday. The next lesson will post on Monday.</p>
     </div>
 
-    <div style="text-align:center; margin-top:1.5rem;">
-        <a href="https://www.youtube.com/watch?v=bo_QRE4X7SM&list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline">Watch on YouTube</a>
+    <div class="reading-actions">
+        <a id="youtube-link" href="https://www.youtube.com/watch?v=bo_QRE4X7SM&amp;list=PLP1KDMu51tB5VibI7QEWe28Q1-Oi0ixhS" class="btn btn--outline" rel="noopener noreferrer">Watch on YouTube</a>
     </div>
 </section>
 
-<!-- Lesson Archive -->
-<section class="container section" style="padding-top:0;">
-    <h2 class="section__title">Lesson Archive</h2>
+<section class="container section section--tight">
+    <h2 class="section__title">Lesson archive</h2>
     <div class="archive-list" id="lesson-archive"></div>
 </section>
 
-<!-- CTA -->
 <section class="container cta-section">
     <p class="cta-section__desc">365 lessons, one per weekday. Subscribe to follow along.</p>
-    <a href="podcast.html" class="btn btn--outline">Subscribe to Podcast</a>
+    <a href="podcast.html" class="btn btn--outline">Subscribe to the podcast</a>
 </section>
+</main>
 
-<!-- Footer -->
 <footer class="site-footer">
     <div class="site-footer__inner">
-        <ul class="site-footer__links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="daily-minute.html">Daily Minute</a></li>
-            <li><a href="lessons.html">Lessons</a></li>
-            <li><a href="podcast.html">Podcast</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="apps.html">Apps</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="monitor.html">Dashboard</a></li>
-            <li><a href="feed.xml">RSS</a></li>
-            <li><a href="podcast-minute.xml">Podcast (Minute)</a></li>
-            <li><a href="podcast-lessons.xml">Podcast (Lessons)</a></li>
-            <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD">YouTube</a></li>
-        </ul>
+        <div class="site-footer__grid">
+            <div>
+                <p class="site-footer__heading">Listen</p>
+                <ul class="site-footer__col">
+                    <li><a href="daily-minute.html">Daily Minute</a></li>
+                    <li><a href="lessons.html">Daily Lessons</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=SrOOCbNXrwI&amp;list=PLP1KDMu51tB7o5hMs2ck69gZZidrg-ltD" rel="noopener noreferrer">YouTube</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Explore</p>
+                <ul class="site-footer__col">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="apps.html">Apps</a></li>
+                    <li><a href="text-series.html">Text Series</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="site-footer__heading">Support</p>
+                <ul class="site-footer__col">
+                    <li><a href="support.html">Contribute</a></li>
+                    <li><a href="mailto:podcast@acimdailyminute.org">Contact</a></li>
+                    <li><a href="https://github.com/larryseyer/ACIM-Daily-Minute" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
         <p class="site-footer__tagline">A free public service sharing the teachings of A Course in Miracles.</p>
-        <p class="site-footer__copy">
-            &copy; 2025–2026 ACIM Daily Minute &middot;
-            <a href="https://github.com/larryseyer/ACIM-Daily-Minute">GitHub</a>
-        </p>
+        <p class="site-footer__copy">&copy; 2025–2026 ACIM Daily Minute</p>
     </div>
 </footer>
 
-<!-- Audio Player Component -->
 <script src="audio-player.js"></script>
-
 <script>
-/* Fetch today's lesson from data file */
+var PLAY_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6c0 .7.8 1.1 1.4.7l10.2-6.8c.6-.4.6-1.2 0-1.6L9.4 4.5c-.6-.4-1.4 0-1.4.7z"/></svg>';
 
-function formatDate(dateStr) {
-    var d = new Date(dateStr + 'T12:00:00');
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+function showEmpty() {
+    document.getElementById('today-lesson').hidden = true;
+    document.getElementById('lesson-progress').hidden = true;
+    document.getElementById('empty-state').hidden = false;
 }
 
 function renderLesson(data) {
     if (!data || !data.title) {
-        document.getElementById('today-lesson').style.display = 'none';
-        document.getElementById('lesson-progress').style.display = 'none';
-        document.getElementById('empty-state').style.display = '';
+        showEmpty();
         return;
     }
-    document.getElementById('lesson-date').textContent = formatDate(data.date);
+    document.getElementById('lesson-date').textContent = formatAcimDate(data.date);
     document.getElementById('lesson-label').textContent = 'Lesson ' + data.number;
-    document.getElementById('lesson-title').textContent = '\u201C' + data.title + '\u201D';
-    document.getElementById('lesson-body').textContent = data.body;
+    var title = stripLessonPrefix(data.title, data.number);
+    document.getElementById('lesson-title').textContent = title;
+    var body = data.body || '';
+    if (title) {
+        var escaped = title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        body = body.replace(new RegExp('^\\s*' + escaped + '\\s*', 'i'), '');
+    }
+    renderAcimParagraphs(document.getElementById('lesson-body'), body);
 
-    // Progress
-    var pct = Math.round((data.number / data.totalLessons) * 100);
+    var total = data.totalLessons || 365;
+    var pct = Math.round((data.number / total) * 100);
     document.getElementById('progress-fill').style.width = pct + '%';
     document.getElementById('lesson-current').textContent = data.number;
-    document.getElementById('lesson-total').textContent = data.totalLessons;
+    document.getElementById('lesson-total').textContent = total;
 
     initAudioPlayer('#lesson-player', data.audioUrl, { blue: true });
 
-    // Weekend check
-    var today = new Date();
-    var day = today.getDay();
+    if (data.youtubeUrl) {
+        var yt = document.getElementById('youtube-link');
+        yt.href = data.youtubeUrl;
+        yt.textContent = "Watch today's lesson";
+    }
+
+    var day = new Date().getDay();
     if (day === 0 || day === 6) {
-        document.getElementById('weekend-note').style.display = '';
+        document.getElementById('weekend-note').hidden = false;
     }
 }
 
-function renderLessonArchive(entries) {
-    var list = document.getElementById('lesson-archive');
-    entries.forEach(function (entry) {
-        var item = document.createElement('div');
-        item.className = 'archive-item archive-item--blue';
-
-        var num = document.createElement('span');
-        num.className = 'archive-item__number';
-        num.textContent = '#' + entry.number;
-
-        var passage = document.createElement('span');
-        passage.className = 'archive-item__passage';
-        passage.textContent = entry.title;
-
-        var play = document.createElement('button');
-        play.className = 'archive-item__play';
-        play.setAttribute('aria-label', 'Play lesson ' + entry.number);
-        play.textContent = '\u25B6';
-
-        item.appendChild(num);
-        item.appendChild(passage);
-        item.appendChild(play);
-        list.appendChild(item);
+function closeArchiveItems(except) {
+    document.querySelectorAll('.archive-item.is-open').forEach(function (item) {
+        if (item !== except) {
+            item.classList.remove('is-open');
+            var player = item.querySelector('.audio-player');
+            if (player && player._acimPlayer) player._acimPlayer.pause();
+        }
     });
+}
+
+function toggleArchiveItem(item, entry) {
+    var open = item.classList.contains('is-open');
+    closeArchiveItems(item);
+    if (open) {
+        item.classList.remove('is-open');
+        item.setAttribute('aria-expanded', 'false');
+        return;
+    }
+    item.classList.add('is-open');
+    item.setAttribute('aria-expanded', 'true');
+    if (!item.querySelector('.archive-item__detail')) {
+        var detail = document.createElement('div');
+        detail.className = 'archive-item__detail';
+        var player = document.createElement('div');
+        player.className = 'audio-player';
+        detail.appendChild(player);
+        item.appendChild(detail);
+        initAudioPlayer(player, entry.audioUrl, { blue: true });
+    }
+}
+
+function bindLessonItem(item, entry) {
+    item.addEventListener('click', function (e) {
+        if (e.target.closest('.archive-item__play')) return;
+        toggleArchiveItem(item, entry);
+    });
+    item.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleArchiveItem(item, entry);
+        }
+    });
+    item.querySelector('.archive-item__play').addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!item.classList.contains('is-open')) toggleArchiveItem(item, entry);
+        var player = item.querySelector('.audio-player');
+        if (player && player._acimPlayer) player._acimPlayer.play();
+    });
+}
+
+function makeLessonItem(entry) {
+    var item = document.createElement('div');
+    item.className = 'archive-item archive-item--blue';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-expanded', 'false');
+
+    var num = document.createElement('span');
+    num.className = 'archive-item__number';
+    num.textContent = 'Lesson ' + entry.number;
+
+    var passage = document.createElement('span');
+    passage.className = 'archive-item__passage';
+    passage.textContent = stripLessonPrefix(entry.title, entry.number);
+
+    var play = document.createElement('button');
+    play.type = 'button';
+    play.className = 'archive-item__play';
+    play.setAttribute('aria-label', 'Play lesson ' + entry.number);
+    play.innerHTML = PLAY_ICON;
+
+    item.appendChild(num);
+    item.appendChild(passage);
+    item.appendChild(play);
+    bindLessonItem(item, entry);
+    return item;
+}
+
+function renderLessonArchive(entries, todayNumber) {
+    var list = document.getElementById('lesson-archive');
+    var filtered = entries.filter(function (entry) {
+        return !(todayNumber && entry.number === todayNumber);
+    });
+
+    if (!filtered.length) {
+        var empty = document.createElement('p');
+        empty.className = 'archive-empty';
+        empty.textContent = 'Completed lessons will collect here.';
+        list.appendChild(empty);
+        return;
+    }
+
+    var shown = 0;
+    var step = 21;
+
+    function addMore() {
+        var moreBtn = list.querySelector('.archive-more');
+        if (moreBtn) moreBtn.remove();
+        filtered.slice(shown, shown + step).forEach(function (entry) {
+            list.appendChild(makeLessonItem(entry));
+        });
+        shown = Math.min(shown + step, filtered.length);
+        if (shown < filtered.length) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn btn--outline archive-more';
+            btn.textContent = 'Show earlier lessons';
+            btn.addEventListener('click', addMore);
+            list.appendChild(btn);
+        }
+    }
+
+    addMore();
 }
 
 fetch('daily-lesson.json')
@@ -233,7 +324,8 @@ fetch('daily-lesson.json')
             body: data.text,
             date: data.date,
             totalLessons: data.total_lessons,
-            audioUrl: data.audio_url
+            audioUrl: data.audio_url,
+            youtubeUrl: data.youtube_url
         });
         if (data.archive && data.archive.length) {
             renderLessonArchive(data.archive.map(function(entry) {
@@ -243,16 +335,13 @@ fetch('daily-lesson.json')
                     date: entry.date,
                     audioUrl: entry.audio_url
                 };
-            }));
+            }), data.lesson_id);
         }
     })
     .catch(function(err) {
         console.warn('Failed to load daily-lesson.json:', err);
-        document.getElementById('today-lesson').style.display = 'none';
-        document.getElementById('lesson-progress').style.display = 'none';
-        document.getElementById('empty-state').style.display = '';
+        showEmpty();
     });
 </script>
-
 </body>
 </html>
