@@ -1,10 +1,11 @@
 /**
  * ACIM Daily Minute Operations Dashboard
- * Polls monitor.json every 10 seconds and updates the UI.
+ * Polls monitor.json and updates the UI.
+ * monitor.json is a daily backend snapshot, not a live feed.
  */
 
 const POLL_INTERVAL = 10000;
-const STALE_THRESHOLD = 600000; // 10 minutes
+const STALE_THRESHOLD = 26 * 60 * 60 * 1000; // 26 hours — flags a missed daily cron
 const MONITOR_URL = './monitor.json';
 
 let lastFetchTime = null;

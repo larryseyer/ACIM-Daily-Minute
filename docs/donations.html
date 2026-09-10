@@ -220,7 +220,8 @@
             })
             .then(function(data) {
                 var dataTime = new Date(data.timestamp);
-                var isStale = (new Date() - dataTime) > 15 * 60 * 1000;
+                // monitor.json is a daily snapshot; 26h flags a missed cron
+                var isStale = (new Date() - dataTime) > 26 * 60 * 60 * 1000;
                 var liveBadge = document.getElementById('live-status');
 
                 if (isStale) {
