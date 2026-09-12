@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-11T07:56:10.746066+00:00",
+  "timestamp": "2026-09-12T00:19:52.111907+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
@@ -7,13 +7,13 @@
       "status": "completed",
       "last_updated": "2026-09-11",
       "segment_id": 11942,
-      "episodes_published": 11942
+      "episodes_published": 180
     },
     "daily_lessons": {
       "status": "completed",
       "last_updated": "2026-09-11",
       "lesson_id": 90,
-      "episodes_published": 90
+      "episodes_published": 92
     },
     "text_series": {
       "status": "coming_soon",
