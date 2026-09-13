@@ -1985,9 +1985,12 @@ p {
     background: rgba(13, 12, 19, 0.72);
     border: 1px solid rgba(240, 201, 86, 0.4);
     color: #f3e6c8;
-    cursor: default;
-    opacity: 0.7;
-    pointer-events: none;
+}
+
+.store-buttons .btn:hover {
+    background: rgba(13, 12, 19, 0.88);
+    border-color: #f0c956;
+    color: #f0c956;
 }
 
 .store-note {
@@ -2025,6 +2028,21 @@ p {
     color: var(--color-text-body);
     line-height: 1.55;
     margin: 0;
+}
+
+.device__store {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+}
+
+.device__store:hover {
+    color: var(--color-gold-light);
+    text-decoration: underline;
 }
 
 .feature-columns {
