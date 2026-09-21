@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-09-21T07:23:02.607290+00:00",
+  "timestamp": "2026-09-21T07:23:40.537571+00:00",
   "uptime_start": null,
   "uptime_seconds": 0,
   "streams": {
     "daily_minute": {
       "status": "completed",
-      "last_updated": "2026-09-21",
-      "segment_id": 12761,
-      "episodes_published": 12761
+      "last_updated": "2026-09-20",
+      "segment_id": 11851,
+      "episodes_published": 11851
     },
     "daily_lessons": {
       "status": "completed",
-      "last_updated": "2026-09-18",
-      "lesson_id": 95,
-      "episodes_published": 95
+      "last_updated": "2026-09-21",
+      "lesson_id": 96,
+      "episodes_published": 96
     },
     "text_series": {
       "status": "coming_soon",
