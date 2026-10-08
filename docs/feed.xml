@@ -7,8 +7,16 @@
     <link>https://www.acimdailyminute.org/</link>
     <description>Daily readings from A Course in Miracles. One-minute text passages and the 365 Workbook Lessons.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Oct 2026 08:49:50 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 07:22:33 +0000</lastBuildDate>
     <atom:link href="https://www.acimdailyminute.org/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Daily Minute — October 8, 2026</title>
+      <description>For sight can merely serve to offer you what you would have. It is impossible to overlook what you would see, and fail to see what you have chosen to behold. How surely, therefore, must the real world come to greet the holy sight of anyone who takes the Holy Spirit’s purpose as his goal for seeing. And he cannot fail to look upon what Christ would have him see, and share Christ’s love for what he </description>
+      <acim:stream>minute</acim:stream>
+      <link>https://www.acimdailyminute.org/daily-minute.html</link>
+      <pubDate>Thu, 08 Oct 2026 07:00:00 GMT</pubDate>
+      <guid isPermaLink="false">acim-minute-2026-10-08</guid>
+    </item>
     <item>
       <title>Lesson 108: “To give and to receive are one in truth.”</title>
       <description>“To give and to receive are one in truth.”
@@ -22,16 +30,6 @@ we are at peace fo</description>
       <link>https://www.acimdailyminute.org/lessons.html</link>
       <pubDate>Wed, 07 Oct 2026 07:00:00 GMT</pubDate>
       <guid isPermaLink="false">acim-lesson-108</guid>
-    </item>
-    <item>
-      <title>Daily Minute — October 6, 2026</title>
-      <description>And if belief determines perception, you do NOT perceive what it means and therefore do not ACCEPT it.
-
-Yet different experiences lead to different beliefs, and experience teaches. I am leading you to a new kind of experience which you will become less and less willing to deny. Learning of Christ is easy, for to perceive with Him involves no strain at all. HIS perceptions are your NATURAL awarenes</description>
-      <acim:stream>minute</acim:stream>
-      <link>https://www.acimdailyminute.org/daily-minute.html</link>
-      <pubDate>Tue, 06 Oct 2026 07:00:00 GMT</pubDate>
-      <guid isPermaLink="false">acim-minute-2026-10-06</guid>
     </item>
   </channel>
 </rss>
